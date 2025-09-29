@@ -1,34 +1,63 @@
-[gd_scene format=3 uid="uid://cu141n04nwv1p"]
+[gd_scene load_steps=4 format=3 uid="uid://cu141n04nwv1p"]
+
+[ext_resource type="Script" uid="uid://bmyn1bijfued1" path="res://scripts/player_spawner.gd" id="1_e05a3"]
+[ext_resource type="Script" uid="uid://c61a10mjrjvmo" path="res://scripts/player_sync.gd" id="2_wl4x5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_olpmc"]
 
 [node name="Arena" type="Node2D"]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(4096, 4095)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2048.0
-offset_top = -2047.5
-offset_right = 2048.0
-offset_bottom = 2047.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ParallaxBackground" type="Parallax2D" parent="."]
+repeat_size = Vector2(1280, 720)
+repeat_times = 2
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(100, 100)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1455.0
-offset_top = -209.0
-offset_right = -1355.0
-offset_bottom = -109.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Camera2D" type="Camera2D" parent="ColorRect2"]
+[node name="ColorRect6" type="ColorRect" parent="ParallaxBackground"]
+offset_left = -220.0
+offset_top = -152.0
+offset_right = -180.0
+offset_bottom = -112.0
+
+[node name="ColorRect7" type="ColorRect" parent="ParallaxBackground"]
+offset_left = 40.0
+offset_top = -234.0
+offset_right = 80.0
+offset_bottom = -194.0
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground"]
+offset_left = 300.0
+offset_top = 256.0
+offset_right = 340.0
+offset_bottom = 296.0
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground"]
+offset_left = 534.0
+offset_top = 119.0
+offset_right = 574.0
+offset_bottom = 159.0
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground"]
+offset_left = 810.0
+offset_top = 409.0
+offset_right = 850.0
+offset_bottom = 449.0
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground"]
+offset_left = 499.0
+offset_top = 591.0
+offset_right = 539.0
+offset_bottom = 631.0
+
+[node name="PlayerSpawner" type="Node2D" parent="."]
+script = ExtResource("1_e05a3")
+
+[node name="PlayerSync" type="Node" parent="."]
+script = ExtResource("2_wl4x5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_olpmc")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
