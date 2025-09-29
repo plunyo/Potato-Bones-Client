@@ -25,9 +25,10 @@ func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 					var new_player := PLAYER_SCENE.instantiate() as Player
 					new_player.id = id
 					new_player.global_position = pos
-					new_player.target_position = pos  # initialize target
+					new_player.target_position = pos
 					players[id] = new_player
 					add_child(new_player)
+					new_player.camera.enabled = id == ServerConnection.client_id
 
 		ServerConnection.PacketID.Incoming.SYNC_PLAYERS:
 			for player_data in ServerConnection.read_player_sync(data, 0).value:
