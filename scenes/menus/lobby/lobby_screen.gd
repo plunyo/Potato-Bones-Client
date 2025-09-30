@@ -7,7 +7,7 @@ const LOBBY_SCENE: PackedScene = preload("uid://cfjq5c3jacg7f") as PackedScene
 @onready var lobby_name_line_edit: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/LobbyNameLineEdit
 @onready var username_line_edit: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/UsernameLineEdit
 
-var username: String
+var username: String = "Anonymous"
 
 func _ready() -> void:
 	ServerConnection.received_packet.connect(_on_received_packed)

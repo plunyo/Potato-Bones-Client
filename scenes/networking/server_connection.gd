@@ -150,9 +150,11 @@ func send_packet(packet_id: int, data: PackedByteArray = PackedByteArray()) -> v
 	var len_bytes: PackedByteArray = write_var_int(payload_len)
 
 	var out: PackedByteArray = PackedByteArray()
+
 	append_array(out, len_bytes)
 	append_array(out, id_bytes)
 	append_array(out, data)
+
 	socket.put_data(out)
 
 func _on_packet_received_handle_packet(packet_id: int, data: PackedByteArray) -> void:
@@ -280,6 +282,7 @@ func read_player_sync(bytes: PackedByteArray, start_pos: int) -> Array:
 
 	var len_res: Array = read_var_int(bytes, pos)
 	var count: int = int(len_res[VALUE])
+	pos = int(len_res[NEXT_POS])
 
 	var result: Array = []
 	result.resize(count)
