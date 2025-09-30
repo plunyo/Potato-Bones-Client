@@ -38,7 +38,8 @@ func _on_button_pressed() -> void:
 	status_label.text = CONNECTING_TO_SERVER_MESSAGE
 
 func spawn_error(message: String) -> void:
+	print(message)
 	status_label.text = ""
 	var error_message_instance: Label = ERROR_MESSAGE_SCENE.instantiate() as Label
-	error_message_instance.text = message
+	error_message_instance.text = "Error: " + message
 	error_message_container.add_child(error_message_instance)
