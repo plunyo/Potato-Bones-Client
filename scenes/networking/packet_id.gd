@@ -1,0 +1,23 @@
+class_name PacketID
+
+enum Outgoing {
+	JOIN =  0x00,
+	MOVE = 0x01,
+	PING = 0x02,
+	PONG = 0x03,
+	REQUEST_SYNC = 0x04,
+	REQUEST_LOBBY_LIST = 0x06,
+	CREATE_LOBBY = 0x07
+}
+
+enum Incoming {
+	JOIN_ACCEPT = 0x00,
+	JOIN_DENY = 0x01,
+	PING = 0x02,
+	PONG = 0x03,
+	UPDATE_PLAYERS = 0x04,
+	SYNC_PLAYERS = 0x05,
+	KICK_PLAYER = 0x06,
+	CLIENT_ID = 0x07,
+	LOBBY_LIST = 0x08
+}

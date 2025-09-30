@@ -7,7 +7,6 @@ const CONNECTED_TO_SERVER_MESSAGE: String = "Connected!"
 @export var ip_line_edit: LineEdit
 @export var port_line_edit: LineEdit
 
-@onready var username_line_edit: LineEdit = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/UsernameLineEdit
 @onready var error_message_container: VBoxContainer = $ErrorMessageContainer
 @onready var status_label: Label = $StatusLabel
 
@@ -15,11 +14,7 @@ func _ready() -> void:
 	ServerConnection.disconnected.connect(func() -> void: spawn_error("Connection failed."))
 	ServerConnection.connected.connect(func() -> void:
 		status_label.text = CONNECTED_TO_SERVER_MESSAGE
-		ServerConnection.send_packet(
-			ServerConnection.PacketID.Outgoing.JOIN,
-			ServerConnection.write_string(username_line_edit.text if !username_line_edit.text.is_empty() else "Anonymous")
-		)
-		get_tree().change_scene_to_file("res://scenes/arena.tscn")
+		get_tree().change_scene_to_packed(preload("uid://lp435bqgilpb") as PackedScene)
 	)
 
 func _on_button_pressed() -> void:
@@ -28,16 +23,17 @@ func _on_button_pressed() -> void:
 
 	if ip == "":
 		ip = ip_line_edit.placeholder_text
+
 	if port_str == "":
 		port_str = port_line_edit.placeholder_text
-	
+
 	var port: int
 	if port_str.is_valid_int():
 		port = int(port_str)
 	else:
 		spawn_error("Invalid port: '%s'. Using default port 30000" % port_str)
 		port = 30000
-	
+
 	ServerConnection.connect_to_server(ip, port)
 	status_label.text = CONNECTING_TO_SERVER_MESSAGE
 

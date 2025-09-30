@@ -17,12 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ServerConnection="*res://scripts/server_connection.gd"
+ServerConnection="*res://scenes/networking/server_connection.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [input]
 

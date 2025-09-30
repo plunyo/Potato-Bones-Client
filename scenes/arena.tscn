@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu141n04nwv1p"]
+[gd_scene load_steps=2 format=3 uid="uid://cu141n04nwv1p"]
 
-[ext_resource type="Script" uid="uid://bmyn1bijfued1" path="res://scripts/player_spawner.gd" id="1_e05a3"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_olpmc"]
+[ext_resource type="Script" uid="uid://bmyn1bijfued1" path="res://scenes/networking/player_handler.gd" id="1_e05a3"]
 
 [node name="Arena" type="Node2D"]
 
@@ -50,10 +48,5 @@ offset_top = 591.0
 offset_right = 539.0
 offset_bottom = 631.0
 
-[node name="PlayerSpawner" type="Node2D" parent="."]
+[node name="PlayerHandler" type="Node2D" parent="."]
 script = ExtResource("1_e05a3")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_olpmc")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

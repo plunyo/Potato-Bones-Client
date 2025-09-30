@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhg05mub2lnxf"]
 
-[ext_resource type="Script" uid="uid://bb8x7bleyp03" path="res://scripts/join_screen.gd" id="1_kqw4s"]
+[ext_resource type="Script" uid="uid://bb8x7bleyp03" path="res://scripts/join_screen.gd" id="1_40v8f"]
 
-[node name="JoinScreen" type="Control" node_paths=PackedStringArray("ip_line_edit", "port_line_edit")]
+[node name="ConnectScreen" type="Control" node_paths=PackedStringArray("ip_line_edit", "port_line_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_kqw4s")
+script = ExtResource("1_40v8f")
 ip_line_edit = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/IPLineEdit")
 port_line_edit = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PortLineEdit")
 
@@ -40,22 +40,13 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="UsernameLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-placeholder_text = "Username:"
-
-[node name="HSeparator2" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="IPLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-placeholder_text = "pi.plunyo.lol"
+placeholder_text = "localhost"
 expand_to_text_length = true
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -76,7 +67,7 @@ theme_override_constants/separation = 10
 [node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
-text = "Join!"
+text = "Connect"
 
 [node name="ErrorMessageContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfjq5c3jacg7f"]
+
+[ext_resource type="Texture2D" uid="uid://cmoyghmdpm6n8" path="res://assets/icons/play.svg" id="1_1gv48"]
+[ext_resource type="Script" uid="uid://c0outer1ie6q4" path="res://scenes/menus/lobby/lobby.gd" id="1_bt4ks"]
+
+[node name="Lobby" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_bt4ks")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LobbyNameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "(LOBBY NAME)"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="IDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56438905, 0.564389, 0.564389, 1)
+theme_override_font_sizes/font_size = 12
+text = "ID:"
+vertical_alignment = 1
+
+[node name="LobbyIDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "(LOBBY ID)"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Players" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56438905, 0.564389, 0.564389, 1)
+theme_override_font_sizes/font_size = 12
+text = "Players:"
+vertical_alignment = 1
+
+[node name="PlayersLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "(PLAYER), (PLAYER), (PLAYER), (PLAYER)"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="JoinButton" type="Button" parent="MarginContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+icon = ExtResource("1_1gv48")
+icon_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/AspectRatioContainer/JoinButton" to="." method="_on_join_button_pressed"]
