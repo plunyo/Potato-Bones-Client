@@ -52,7 +52,7 @@ func disconnect_from_server() -> void:
 
 # -------------------- Process --------------------
 
-func _process(_delta: float) -> void:
+func _on_poll_timer_timeout() -> void:
 	socket.poll()
 
 	var status: int = socket.get_status()
@@ -84,6 +84,7 @@ func _handle_disconnect(reason: String) -> void:
 		_is_connected = false
 		_is_connecting = false
 		socket.disconnect_from_host()
+		get_tree().change_scene_to_packed(preload("uid://dhg05mub2lnxf") as PackedScene)
 		emit_signal("disconnected")
 
 # -------------------- Incoming --------------------
@@ -273,7 +274,6 @@ func read_lobby_list(bytes: PackedByteArray, start_pos: int) -> Array:
 		}
 
 	return [lobbies, pos]
-
 
 func read_player_sync(bytes: PackedByteArray, start_pos: int) -> Array:
 	var host_id_res: Array = read_var_int(bytes, start_pos)

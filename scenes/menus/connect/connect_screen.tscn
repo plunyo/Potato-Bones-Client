@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dhg05mub2lnxf"]
 
-[ext_resource type="Script" uid="uid://bb8x7bleyp03" path="res://scripts/join_screen.gd" id="1_40v8f"]
+[ext_resource type="Script" uid="uid://bb8x7bleyp03" path="res://scenes/menus/connect/connect_screen.gd" id="1_40v8f"]
 
 [node name="ConnectScreen" type="Control" node_paths=PackedStringArray("ip_line_edit", "port_line_edit")]
 layout_mode = 3

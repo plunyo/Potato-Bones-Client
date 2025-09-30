@@ -26,6 +26,8 @@ func _on_received_packed(packet_id: int, data: PackedByteArray) -> void:
 		PacketID.Incoming.JOIN_ACCEPT:
 			get_tree().change_scene_to_packed(preload("uid://cu141n04nwv1p") as PackedScene)
 		PacketID.Incoming.LOBBY_LIST:
+			#for child in lobby_container.get_children(): child.queue_free()
+
 			for lobby: Dictionary in ServerConnection.read_lobby_list(data, 0)[ServerConnection.VALUE]:
 				var lobby_instance: Lobby = LOBBY_SCENE.instantiate() as Lobby
 				lobby_container.add_child(lobby_instance)
@@ -33,7 +35,7 @@ func _on_received_packed(packet_id: int, data: PackedByteArray) -> void:
 				lobby_instance.join_pressed.connect(_on_join_button_pressed)
 
 func _on_create_lobby_button_pressed() -> void:
-	var packet_data := ServerConnection.write_string(username)
+	var packet_data: PackedByteArray = ServerConnection.write_string(username)
 
 	packet_data.append_array(
 		ServerConnection.write_string(
@@ -43,7 +45,7 @@ func _on_create_lobby_button_pressed() -> void:
 	ServerConnection.send_packet(PacketID.Outgoing.CREATE_LOBBY, packet_data)
 
 func _on_join_button_pressed(id: int) -> void:
-	var packet_data := ServerConnection.write_string(username)
+	var packet_data: PackedByteArray = ServerConnection.write_string(username)
 
 	packet_data.append_array(ServerConnection.write_var_int(id))
 

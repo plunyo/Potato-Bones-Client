@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const CATCH_UP_SPEED: float = 10.0
+const CATCH_UP_SPEED: float = 15.0
 const SPEED: float = 500
 
 @onready var camera: Camera2D = $Camera
@@ -21,6 +21,7 @@ func _ready() -> void:
 	username_label.text = username
 
 func _physics_process(delta: float) -> void:
+	print(Engine.get_frames_per_second())
 	if id != ServerConnection.client_id:
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
@@ -32,8 +33,7 @@ func _physics_process(delta: float) -> void:
 func _on_move_packet_timer_timeout() -> void:
 	if id != ServerConnection.client_id: return
 
-	if velocity.length() > 0:
-		ServerConnection.send_packet(
-			PacketID.Outgoing.MOVE,
-			ServerConnection.write_position(global_position)
-		)
+	ServerConnection.send_packet(
+		PacketID.Outgoing.MOVE,
+		ServerConnection.write_position(global_position)
+	)

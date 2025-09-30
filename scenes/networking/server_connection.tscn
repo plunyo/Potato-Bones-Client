@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://d30ikmwvfb81w"]
+
+[ext_resource type="Script" uid="uid://t4s50eiabgyl" path="res://scenes/networking/server_connection.gd" id="1_ee6yg"]
+
+[node name="ServerConnection" type="Node"]
+script = ExtResource("1_ee6yg")
+
+[node name="PollTimer" type="Timer" parent="."]
+wait_time = 0.025
+autostart = true
+
+[connection signal="timeout" from="PollTimer" to="." method="_on_poll_timer_timeout"]

@@ -49,4 +49,5 @@ offset_right = 539.0
 offset_bottom = 631.0
 
 [node name="PlayerHandler" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("1_e05a3")
