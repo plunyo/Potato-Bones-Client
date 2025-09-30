@@ -1,6 +1,6 @@
 class_name LobbyScreen
 extends MarginContainer
-
+DIHDIHDIHDIHDIHDIH
 const LOBBY_SCENE: PackedScene = preload("uid://cfjq5c3jacg7f") as PackedScene
 
 @onready var lobby_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/LobbyContainer
