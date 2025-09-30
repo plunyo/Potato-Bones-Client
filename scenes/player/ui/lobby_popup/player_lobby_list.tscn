@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyaor04qfmrey"]
+
+[ext_resource type="Texture2D" uid="uid://5ura0hwailm8" path="res://assets/icons/kick.svg" id="1_c1xqf"]
+[ext_resource type="Script" uid="uid://qlyotkb87q8x" path="res://scenes/player/ui/lobby_popup/player_lobby_list.gd" id="1_w8c5v"]
+[ext_resource type="Texture2D" uid="uid://jt47ofxsm2bh" path="res://assets/icons/change_host.svg" id="2_w8c5v"]
+
+[node name="PlayerLobbyPopup" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_w8c5v")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UsernameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "John Pork"
+
+[node name="KickButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("1_c1xqf")
+
+[node name="ChangeHostButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_w8c5v")
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/KickButton" to="." method="_on_kick_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ChangeHostButton" to="." method="_on_change_host_button_pressed"]

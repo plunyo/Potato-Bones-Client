@@ -15,6 +15,5 @@ func set_data(lobby_name: String, lobby_id: int, players: PackedStringArray) -> 
 	id = lobby_id
 	players_label.text = ", ".join(players)
 
-
 func _on_join_button_pressed() -> void:
 	join_pressed.emit(id)

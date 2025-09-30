@@ -13,15 +13,9 @@ const SPEED: float = 500
 var target_position: Vector2
 
 func _ready() -> void:
-	ServerConnection.disconnected.connect(
-		func() -> void:
-			get_tree().change_scene_to_file("res://scenes/join_screen.tscn")
-	)
-
 	username_label.text = username
 
 func _physics_process(delta: float) -> void:
-	print(Engine.get_frames_per_second())
 	if id != ServerConnection.client_id:
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
@@ -34,6 +28,6 @@ func _on_move_packet_timer_timeout() -> void:
 	if id != ServerConnection.client_id: return
 
 	ServerConnection.send_packet(
-		PacketID.Outgoing.MOVE,
-		ServerConnection.write_position(global_position)
+		PacketUtils.Outgoing.MOVE,
+		PacketUtils.write_position(global_position)
 	)

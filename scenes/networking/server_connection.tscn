@@ -7,6 +7,11 @@ script = ExtResource("1_ee6yg")
 
 [node name="PollTimer" type="Timer" parent="."]
 wait_time = 0.025
-autostart = true
 
+[node name="DeadlineTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="received_packet" from="." to="." method="_on_received_packet"]
 [connection signal="timeout" from="PollTimer" to="." method="_on_poll_timer_timeout"]
+[connection signal="timeout" from="DeadlineTimer" to="." method="_on_deadline_timer_timeout"]

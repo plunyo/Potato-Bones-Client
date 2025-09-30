@@ -1,0 +1,169 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3wm46ftjfvyq"]
+
+[ext_resource type="Texture2D" uid="uid://i77y64uwhc8e" path="res://assets/icons/lobby.svg" id="1_3sye7"]
+[ext_resource type="Script" uid="uid://cjci826drkowp" path="res://scenes/player/ui/user_interface.gd" id="1_wbj5x"]
+[ext_resource type="Texture2D" uid="uid://cfi5ui4od0rwh" path="res://assets/icons/menu.svg" id="2_ah2hq"]
+[ext_resource type="Script" uid="uid://bskd11e3augak" path="res://scenes/player/ui/lobby_popup/lobby_popup_container.gd" id="4_er14q"]
+[ext_resource type="Texture2D" uid="uid://7egmi4y8aefm" path="res://assets/icons/exit.svg" id="5_wbj5x"]
+
+[node name="UserInterface" type="CanvasLayer"]
+script = ExtResource("1_wbj5x")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LobbyPopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("1_3sye7")
+
+[node name="EscapePopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_ah2hq")
+
+[node name="PopupsMarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="LobbyPopup" type="PanelContainer" parent="Control/PopupsMarginContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("4_er14q")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer"]
+layout_mode = 2
+
+[node name="LobbyNameLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Conrad's Lobby"
+horizontal_alignment = 1
+
+[node name="LobbyIDLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/LobbyNameLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "ID:  (EXAMPLE ID)"
+
+[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayerContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EscapePopup" type="PanelContainer" parent="Control/PopupsMarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/EscapePopup"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer"]
+layout_mode = 2
+
+[node name="EscapeLabel" type="Label" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Escape Menu"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LeaveButton" type="Button" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Leave"
+icon = ExtResource("5_wbj5x")
+icon_alignment = 2
+expand_icon = true
+
+[connection signal="toggled" from="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer/LobbyPopupButton" to="." method="_on_lobby_popup_button_toggled"]
+[connection signal="toggled" from="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer/EscapePopupButton" to="." method="_on_escape_popup_button_toggled"]
+[connection signal="pressed" from="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
