@@ -9,7 +9,9 @@ enum Outgoing {
 	REQUEST_LOBBY_LIST = 0x06,
 	CREATE_LOBBY = 0x07,
 	KICK_PLAYER = 0x08,
-	CHANGE_HOST = 0x09
+	CHANGE_HOST = 0x09,
+	LEAVE_LOBBY = 0x0A,
+	REQUEST_LOBBY_SYNC = 0x0B
 }
 
 enum Incoming {
@@ -21,7 +23,8 @@ enum Incoming {
 	SYNC_PLAYERS = 0x05,
 	KICK_PLAYER = 0x06,
 	CLIENT_ID = 0x07,
-	LOBBY_LIST = 0x08
+	LOBBY_LIST = 0x08,
+	LOBBY_SYNC = 0x09
 }
 
 const BITS_15: int = 2 << 15
@@ -80,8 +83,8 @@ static func read_position(bytes: PackedByteArray, start_pos: int = 0) -> Array:
 	var y: int = (bytes[pos + 2] << 8) | bytes[pos + 3]
 	return [Vector2(x - BITS_15, y - BITS_15), pos + 4]
 
-static func read_boolean_from_bytes(bytes: PackedByteArray, start_pos: int = 0) -> Array:
-	return [bytes[start_pos] != 0, start_pos + 1]
+static func read_boolean(bytes: PackedByteArray, start_pos: int = 0) -> Array:
+	return [bool(bytes[start_pos]), start_pos + 1]
 
 static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> Array:
 	var read_player_item: Callable = func(b: PackedByteArray, p: int) -> Array:
@@ -116,10 +119,33 @@ static func read_lobby_list(bytes: PackedByteArray, start_pos: int = 0) -> Array
 		return [{"name": lobby_name, "id": lobby_id, "host_id": host_id, "players": player_names}, pos]
 	return read_multiple(bytes, start_pos, read_lobby_item)
 
-static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Array:
-	var host_id_res: Array = read_var_int(bytes, start_pos)
+static func read_lobby_sync(bytes: PackedByteArray, start_pos: int = 0) -> Array:
+	var in_lobby_res: Array = PacketUtils.read_boolean(bytes, start_pos)
+	var in_lobby: bool = in_lobby_res[VALUE]
+	var pos: int = in_lobby_res[NEXT_POS]
+
+	var lobby_id_res: Array = PacketUtils.read_var_int(bytes, pos)
+	var lobby_id: int = lobby_id_res[VALUE]
+	pos = lobby_id_res[NEXT_POS]
+
+	var lobby_name_res: Array = PacketUtils.read_string(bytes, pos)
+	var lobby_name: String = lobby_name_res[VALUE]
+	pos = lobby_name_res[NEXT_POS]
+
+	var host_id_res: Array = PacketUtils.read_var_int(bytes, pos)
 	var host_id: int = host_id_res[VALUE]
-	var pos: int = host_id_res[NEXT_POS]
+
+	ServerConnection.lobby_info = {
+		in_lobby = in_lobby,
+		lobby_id = lobby_id,
+		lobby_name = lobby_name,
+		host_id = host_id,
+	}
+
+	return [ServerConnection.lobby_info, host_id_res[NEXT_POS]]
+
+static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Array:
+	var pos: int = start_pos
 
 	var read_sync_item: Callable = func(b: PackedByteArray, p: int) -> Array:
 		var local_pos: int = p
@@ -135,7 +161,7 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Arra
 		return [{"id": player_id, "username": username, "position": pos_res[VALUE]}, pos_res[NEXT_POS]]
 
 	var players_res: Array = read_multiple(bytes, pos, read_sync_item)
-	return [{"players": players_res[VALUE], "host_id": host_id}, players_res[NEXT_POS]]
+	return [players_res[VALUE], players_res[NEXT_POS]]
 
 #endregion
 

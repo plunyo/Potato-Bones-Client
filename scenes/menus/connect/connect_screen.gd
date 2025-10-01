@@ -14,7 +14,7 @@ func _ready() -> void:
 	ServerConnection.disconnected.connect(func(_reason: String) -> void: spawn_error("Connection failed."))
 	ServerConnection.connected.connect(func() -> void:
 		status_label.text = CONNECTED_TO_SERVER_MESSAGE
-		get_tree().change_scene_to_packed(preload("uid://lp435bqgilpb") as PackedScene)
+		get_tree().change_scene_to_file("uid://lp435bqgilpb")
 	)
 
 func _on_button_pressed() -> void:

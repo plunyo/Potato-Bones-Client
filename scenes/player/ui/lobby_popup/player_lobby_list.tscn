@@ -27,10 +27,12 @@ theme_override_font_sizes/font_size = 25
 text = "John Pork"
 
 [node name="KickButton" type="Button" parent="MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("1_c1xqf")
 
 [node name="ChangeHostButton" type="Button" parent="MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("2_w8c5v")
 

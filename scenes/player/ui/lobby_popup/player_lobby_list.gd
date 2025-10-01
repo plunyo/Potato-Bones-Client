@@ -5,16 +5,24 @@ extends PanelContainer
 @onready var kick_button: Button = $MarginContainer/HBoxContainer/KickButton
 @onready var change_host_button: Button = $MarginContainer/HBoxContainer/ChangeHostButton
 
-var id: int
+var id: int = -1
 
-func set_data(username: String, player_id: int, is_host: bool) -> void:
+func set_data(username: String, player_id: int) -> void:
 	username_label.text = username
 	id = player_id
-	kick_button.visible = is_host and id != ServerConnection.client_id
-	change_host_button.visible = is_host and id != ServerConnection.client_id
+
+func set_is_host(is_host: bool) -> void:
+	var show_host_controls: bool = is_host and id != ServerConnection.client_id
+	kick_button.visible = show_host_controls
+	change_host_button.visible = show_host_controls
 
 func _on_kick_button_pressed() -> void:
-	ServerConnection.send_packet(PacketUtils.Outgoing.KICK_PLAYER, PacketUtils.write_var_int(id))
+	ServerConnection.send_packet(
+		PacketUtils.Outgoing.KICK_PLAYER,
+		PacketUtils.write_var_int(id),
+		PacketUtils.write_string("Kicked by host!")
+	)
 
 func _on_change_host_button_pressed() -> void:
+	print("local player id: ", ServerConnection.client_id, ", new host id: ", id)
 	ServerConnection.send_packet(PacketUtils.Outgoing.CHANGE_HOST, PacketUtils.write_var_int(id))

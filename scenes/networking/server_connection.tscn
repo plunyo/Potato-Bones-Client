@@ -6,7 +6,7 @@
 script = ExtResource("1_ee6yg")
 
 [node name="PollTimer" type="Timer" parent="."]
-wait_time = 0.025
+wait_time = 0.05
 
 [node name="DeadlineTimer" type="Timer" parent="."]
 wait_time = 5.0

@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+
+const USER_INTERFACE: PackedScene = preload("uid://c3wm46ftjfvyq") as PackedScene
 const CATCH_UP_SPEED: float = 15.0
 const SPEED: float = 500
 
@@ -13,6 +15,8 @@ const SPEED: float = 500
 var target_position: Vector2
 
 func _ready() -> void:
+	if id == ServerConnection.client_id:
+		add_child(USER_INTERFACE.instantiate() as UserInterface)
 	username_label.text = username
 
 func _physics_process(delta: float) -> void:

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://nktph0qyqjgy"]
+[gd_scene load_steps=3 format=3 uid="uid://nktph0qyqjgy"]
 
 [ext_resource type="Script" uid="uid://pm01miow0fbf" path="res://scenes/player/player.gd" id="1_8afob"]
-[ext_resource type="PackedScene" uid="uid://c3wm46ftjfvyq" path="res://scenes/player/ui/user_interface.tscn" id="2_dovo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(100, 100)
@@ -67,7 +66,5 @@ theme_override_font_sizes/font_size = 30
 text = "Anonymous"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="UserInterface" parent="." instance=ExtResource("2_dovo2")]
 
 [connection signal="timeout" from="MovePacketTimer" to="." method="_on_move_packet_timer_timeout"]

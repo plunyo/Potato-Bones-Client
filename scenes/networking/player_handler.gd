@@ -6,14 +6,14 @@ var players: Dictionary[int, Player] = {}
 
 func _ready() -> void:
 	ServerConnection.received_packet.connect(_on_received_packet)
-	ServerConnection.send_packet(PacketUtils.Outgoing.REQUEST_SYNC)
+	ServerConnection.send_packet(PacketUtils.Outgoing.REQUEST_PLAYER_SYNC)
 
 func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:
 		PacketUtils.Incoming.UPDATE_PLAYERS:
 			_handle_player_update(PacketUtils.read_player_update(data, 0)[0])
 		PacketUtils.Incoming.SYNC_PLAYERS:
-			_handle_player_sync(PacketUtils.read_player_sync(data, 0)[0].players)
+			_handle_player_sync(PacketUtils.read_player_sync(data, 0)[0])
 
 # helper to create a new player
 func _create_player(id: int, net_position: Vector2, username: String = "Anonymous") -> Player:
@@ -45,11 +45,15 @@ func _handle_player_update(player_list: Array) -> void:
 
 # handle SYNC_PLAYERS packet
 func _handle_player_sync(player_list: Array) -> void:
+	var synced_ids: Array = []
+	
+	# first, update or create players
 	for data: Dictionary in player_list:
 		var id: int = data.get("id")
 		if id == null:
 			continue
 
+		synced_ids.append(id)
 		var username: String = data.get("username", "Anonymous")
 		var pos: Vector2 = data.get("position", Vector2.ZERO)
 
@@ -60,3 +64,9 @@ func _handle_player_sync(player_list: Array) -> void:
 				existing.target_position = pos
 		else:
 			_create_player(id, pos, username)
+
+	# then, remove players not in the synced list
+	for id in players.keys():
+		if id not in synced_ids:
+			players[id].queue_free()
+			players.erase(id)

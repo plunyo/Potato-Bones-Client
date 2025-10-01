@@ -24,35 +24,30 @@ func request_lobby_list() -> void:
 func _on_received_packed(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:
 		PacketUtils.Incoming.JOIN_ACCEPT:
-			get_tree().change_scene_to_packed(preload("uid://cu141n04nwv1p") as PackedScene)
+			get_tree().change_scene_to_file("uid://lp435bqgilpb")
 		PacketUtils.Incoming.LOBBY_LIST:
 			for child: Lobby in lobby_container.get_children(): child.queue_free()
 
 			for lobby: Dictionary in PacketUtils.read_lobby_list(data)[PacketUtils.VALUE]:
-				print("a")
 				var lobby_instance: Lobby = LOBBY_SCENE.instantiate() as Lobby
 				lobby_container.add_child(lobby_instance)
 				lobby_instance.set_data(lobby.name, lobby.id, lobby.players)
 				lobby_instance.join_pressed.connect(_on_join_button_pressed)
 
 func _on_create_lobby_button_pressed() -> void:
-	var packet_data: PackedByteArray = PacketUtils.write_string(username)
-
-	packet_data.append_array(
+	ServerConnection.send_packet(
+		PacketUtils.Outgoing.CREATE_LOBBY,
+		PacketUtils.write_string(username),
 		PacketUtils.write_string(
 			lobby_name_line_edit.text if !lobby_name_line_edit.text.is_empty() else lobby_name_line_edit.placeholder_text
 		)
 	)
-	ServerConnection.send_packet(PacketUtils.Outgoing.CREATE_LOBBY, packet_data)
 
 func _on_join_button_pressed(id: int) -> void:
-	var packet_data: PackedByteArray = PacketUtils.write_string(username)
-
-	packet_data.append_array(PacketUtils.write_var_int(id))
-
 	ServerConnection.send_packet(
 		PacketUtils.Outgoing.JOIN,
-		packet_data
+		PacketUtils.write_string(username),
+		PacketUtils.write_var_int(id)
 	)
 
 func _on_username_line_edit_text_changed(new_text: String) -> void:

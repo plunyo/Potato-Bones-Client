@@ -164,6 +164,15 @@ icon = ExtResource("5_wbj5x")
 icon_alignment = 2
 expand_icon = true
 
+[node name="ClientIDLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+text = "Client ID: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="toggled" from="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer/LobbyPopupButton" to="." method="_on_lobby_popup_button_toggled"]
 [connection signal="toggled" from="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer/EscapePopupButton" to="." method="_on_escape_popup_button_toggled"]
 [connection signal="pressed" from="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
