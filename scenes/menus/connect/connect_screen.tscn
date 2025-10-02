@@ -57,7 +57,7 @@ text = ":"
 [node name="PortLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-placeholder_text = "30000"
+placeholder_text = "4206"
 expand_to_text_length = true
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
