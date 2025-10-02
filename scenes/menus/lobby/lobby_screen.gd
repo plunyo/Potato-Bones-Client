@@ -47,7 +47,7 @@ func _on_create_lobby_button_pressed() -> void:
 
 func _on_join_button_pressed(id: int) -> void:
 	ServerConnection.send_packet(
-		ServerConnection.TCP, 
+		ServerConnection.TCP,
 		PacketUtils.Outgoing.JOIN,
 		PacketUtils.write_string(username),
 		PacketUtils.write_var_int(id)

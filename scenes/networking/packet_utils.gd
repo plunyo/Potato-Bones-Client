@@ -170,26 +170,18 @@ static func read_lobby_list(bytes: PackedByteArray, start_pos: int = 0) -> ReadR
 
 static func read_lobby_sync(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	var in_lobby_res: ReadResult = PacketUtils.read_boolean(bytes, start_pos)
-	if not in_lobby_res.fully_read:
-		return ReadResult.new({}, in_lobby_res.next_pos, false)
 	var in_lobby: bool = in_lobby_res.value
 	var pos: int = in_lobby_res.next_pos
 
 	var lobby_id_res: ReadResult = PacketUtils.read_var_int(bytes, pos)
-	if not lobby_id_res.fully_read:
-		return ReadResult.new({}, lobby_id_res.next_pos, false)
 	var lobby_id: int = lobby_id_res.value
 	pos = lobby_id_res.next_pos
 
 	var lobby_name_res: ReadResult = PacketUtils.read_string(bytes, pos)
-	if not lobby_name_res.fully_read:
-		return ReadResult.new({}, lobby_name_res.next_pos, false)
 	var lobby_name: String = lobby_name_res.value
 	pos = lobby_name_res.next_pos
 
 	var host_id_res: ReadResult = PacketUtils.read_var_int(bytes, pos)
-	if not host_id_res.fully_read:
-		return ReadResult.new({}, host_id_res.next_pos, false)
 	var host_id: int = host_id_res.value
 
 	ServerConnection.lobby_info = {

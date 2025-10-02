@@ -8,8 +8,8 @@ const PLAYER_LOBBY_LIST_SCENE: PackedScene = preload("uid://dyaor04qfmrey")
 
 func _ready() -> void:
 	ServerConnection.received_packet.connect(_on_packet_received)
-	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.REQUEST_PLAYER_SYNC)
 	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.REQUEST_LOBBY_SYNC)
+	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.REQUEST_PLAYER_SYNC)
 
 func _on_packet_received(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:

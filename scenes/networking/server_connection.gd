@@ -46,7 +46,7 @@ func disconnect_from_server(reason: String) -> void:
 	disconnected.emit(reason)
 	print("reason: ", reason)
 	_has_connected = false
-	get_tree().change_scene_to_file("uid://lp435bqgilpb")
+	get_tree().change_scene_to_file("res://scenes/menus/connect/connect_screen.tscn")
 
 # ----------------------- packet handling -----------------------
 # ----------------------- packet handling -----------------------
@@ -119,23 +119,7 @@ func _process_packet(packet: PackedByteArray) -> void:
 func _process_incoming_packets(available: int) -> void:
 	# --- UDP ---
 	while udp_socket.get_available_packet_count() > 0:
-		var raw = udp_socket.get_packet()
-		var udp_packet: PackedByteArray = PackedByteArray()
-
-		# handle both return styles: [err, data] or direct PackedByteArray
-		if typeof(raw) == TYPE_ARRAY and raw.size() >= 2:
-			if raw[0] == OK:
-				udp_packet = raw[1]
-			else:
-				push_error("udp get_packet returned error: %s" % raw[0])
-				break
-		elif typeof(raw) == TYPE_PACKED_BYTE_ARRAY:
-			udp_packet = raw
-		else:
-			push_warning("udp get_packet returned unexpected type: %s" % typeof(raw))
-			break
-
-		_process_packet(udp_packet)
+		_process_packet(udp_socket.get_packet())
 
 	# --- TCP ---
 	if available > 0:
