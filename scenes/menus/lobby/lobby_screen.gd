@@ -41,7 +41,7 @@ func _on_create_lobby_button_pressed() -> void:
 		PacketUtils.Outgoing.CREATE_LOBBY,
 		PacketUtils.write_string(username),
 		PacketUtils.write_string(
-			lobby_name_line_edit.text if !lobby_name_line_edit.text.is_empty() else lobby_name_line_edit.placeholder_text
+			lobby_name_line_edit.text if not lobby_name_line_edit.text.is_empty() else lobby_name_line_edit.placeholder_text
 		)
 	)
 
@@ -54,5 +54,5 @@ func _on_join_button_pressed(id: int) -> void:
 	)
 
 func _on_username_line_edit_text_changed(new_text: String) -> void:
-	username = new_text if !new_text.is_empty() else "Anonymous"
-	lobby_name_line_edit.placeholder_text = new_text + "'s Lobby" if !new_text.is_empty() else "Anonymous's Lobby"
+	username = new_text if not new_text.is_empty() else "Anonymous"
+	lobby_name_line_edit.placeholder_text = new_text + "'s Lobby" if not new_text.is_empty() else "Anonymous's Lobby"

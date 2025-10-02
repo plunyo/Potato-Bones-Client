@@ -25,7 +25,7 @@ var _has_connected: bool = false
 
 # ----------------------- connection management -----------------------
 func connect_to_server(address: String, port: int) -> void:
-	udp_socket.bind(0)
+	if not udp_socket.is_bound(): udp_socket.bind(0)
 	udp_socket.set_dest_address(address, port)
 
 	if tcp_stream.get_status() == StreamPeerTCP.STATUS_CONNECTED:
