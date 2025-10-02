@@ -10,11 +10,14 @@ const CATCH_UP_SPEED: float = 15.0
 const SPEED: float = 500
 
 @onready var camera: Camera2D = $Camera
-@onready var username_label: Label = $UsernameLabel
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var body: Node2D = $Body
 
+@export var username_label: Label
 @export var id: int = -1
-@export var username: String
 
+var username: String
 var last_transform: Transform2D
 
 var target_position: Vector2
@@ -26,14 +29,12 @@ func _ready() -> void:
 	if id == ServerConnection.client_id:
 		add_child(USER_INTERFACE.instantiate() as UserInterface)
 
-	last_transform = global_transform
+	last_transform = body.global_transform
 	username_label.text = username
 
 func _physics_process(delta: float) -> void:
-	username_label.global_position = global_position + NAME_TAG_OFFSET
-
 	if id != ServerConnection.client_id:
-		global_rotation = lerp(global_rotation, target_rotation, CATCH_UP_SPEED * delta)
+		body.global_rotation = lerp(global_rotation, target_rotation, CATCH_UP_SPEED * delta)
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
 
@@ -41,18 +42,30 @@ func _physics_process(delta: float) -> void:
 	velocity = input_direction.normalized() * SPEED
 	move_and_slide()
 
+	if Input.is_action_just_pressed(&"attack"):
+		animation_tree.set(&"parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+	animation_tree.set(
+		&"parameters/movement_blend/blend_amount",
+		lerp(
+			animation_tree.get(&"parameters/movement_blend/blend_amount"),
+			input_direction.normalized().length(),
+			CATCH_UP_SPEED * delta
+		)
+	)
+
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var rotation_goal: float = (mouse_pos - global_position).angle() + PI / 2
-	global_rotation = lerp_angle(global_rotation, rotation_goal, CATCH_UP_SPEED * delta)
+	body.global_rotation = lerp_angle(body.global_rotation, rotation_goal, CATCH_UP_SPEED * delta)
 
 func _on_move_packet_timer_timeout() -> void:
 	if id != ServerConnection.client_id:
 		return
 
-	var pos_changed: bool = last_transform.get_origin().distance_to(global_transform.get_origin()) > POS_TOLERANCE
+	var pos_changed: bool = last_transform.get_origin().distance_to(body.global_transform.get_origin()) > POS_TOLERANCE
 
 	var last_rot: float = rad_to_deg(last_transform.get_rotation())
-	var cur_rot: float = rad_to_deg(global_transform.get_rotation())
+	var cur_rot: float = rad_to_deg(body.global_transform.get_rotation())
 	var angle_delta: float = abs((int(cur_rot - last_rot + 180) % 360) - 180)
 	var angle_changed: bool = angle_delta > ANGLE_TOLERANCE_DEG
 
@@ -69,4 +82,4 @@ func _on_move_packet_timer_timeout() -> void:
 		PacketUtils.write_rotation(global_rotation)
 	)
 
-	last_transform = global_transform
+	last_transform = body.global_transform

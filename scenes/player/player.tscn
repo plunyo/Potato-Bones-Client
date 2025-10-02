@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://nktph0qyqjgy"]
+[gd_scene load_steps=19 format=3 uid="uid://nktph0qyqjgy"]
 
 [ext_resource type="Script" uid="uid://pm01miow0fbf" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://gbsyyo80jlro" path="res://assets/player/outfits/camoflauge.png" id="2_dovo2"]
 [ext_resource type="Texture2D" uid="uid://cjkwc1uodgdar" path="res://assets/player/hands/empty.png" id="2_lvxji"]
+[ext_resource type="Texture2D" uid="uid://dmwe8kxnmfhxf" path="res://assets/player/shoes.png" id="2_p47bc"]
 [ext_resource type="Texture2D" uid="uid://cd0bhqq5eklx1" path="res://assets/player/head.png" id="3_gmlin"]
+[ext_resource type="Texture2D" uid="uid://drq47twsu1mfb" path="res://assets/player/axe.png" id="4_75vfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(80, 80)
@@ -25,31 +27,31 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Hands/Left:position")
+tracks/1/path = NodePath("Body/Shoes/LeftShoe:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-80, 0)]
+"values": [Vector2(-32, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Hands/Right:position")
+tracks/2/path = NodePath("Body/Shoes/RightShoe:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(80, 0)]
+"values": [Vector2(32, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_lvxji"]
-resource_name = "walk"
-length = 0.2
+[sub_resource type="Animation" id="Animation_75vfm"]
+resource_name = "idle"
+length = 2.0
 loop_mode = 2
 step = 0.05
 tracks/0/type = "value"
@@ -59,45 +61,113 @@ tracks/0/path = NodePath("Body/Hands:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-0.03490658503988659, 0.03490658503988659]
 }
+
+[sub_resource type="Animation" id="Animation_lvxji"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Hands:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.08726646259971647, 0.08726646259971647]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Hands/Left:position")
+tracks/1/path = NodePath("Body/Shoes/LeftShoe:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-80, 10), Vector2(-80, 0)]
+"values": [Vector2(-32, -15), Vector2(-32, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Hands/Right:position")
+tracks/2/path = NodePath("Body/Shoes/RightShoe:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(80, 0), Vector2(80, 10)]
+"values": [Vector2(32, 0), Vector2(31.999996, -14.999998)]
+}
+
+[sub_resource type="Animation" id="Animation_0owmy"]
+resource_name = "attack"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/Hands:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.17453292519943295, -0.8726646259971648, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p47bc"]
 _data = {
 &"RESET": SubResource("Animation_p47bc"),
+&"attack": SubResource("Animation_0owmy"),
+&"idle": SubResource("Animation_75vfm"),
 &"walk": SubResource("Animation_lvxji")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_75vfm"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_0owmy"]
+filter_enabled = true
+filters = ["Body/Hands/RightHand:position", "Body/Hands/RightHand:rotation", "Body/Hands:rotation", "Body/Particles/Slash:modulate", "Body/Particles/Slash:position", "Body/Particles/Slash:visible"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5gtgg"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_75vfm"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h17s1"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_je7p5"]
+graph_offset = Vector2(-313.03287, 32.22054)
+nodes/output/position = Vector2(491.42856, 0)
+nodes/attack_oneshot/node = SubResource("AnimationNodeOneShot_0owmy")
+nodes/attack_oneshot/position = Vector2(297.14285, -11.428572)
+nodes/walk/node = SubResource("AnimationNodeAnimation_h17s1")
+nodes/walk/position = Vector2(-68.57143, 274.2857)
+nodes/idle/node = SubResource("AnimationNodeAnimation_5gtgg")
+nodes/idle/position = Vector2(-68.57143, 57.142857)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_75vfm")
+"nodes/Animation 3/position" = Vector2(-68.57143, 480)
+nodes/movement_blend/node = SubResource("AnimationNodeBlend2_75vfm")
+nodes/movement_blend/position = Vector2(114.28571, 22.857143)
+node_connections = [&"output", 0, &"attack_oneshot", &"attack_oneshot", 0, &"movement_blend", &"attack_oneshot", 1, &"Animation 3", &"movement_blend", 0, &"idle", &"movement_blend", 1, &"walk"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("username_label")]
 collision_layer = 2
 script = ExtResource("1_8afob")
+username_label = NodePath("UsernameLabel")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3vyb7")
@@ -105,33 +175,51 @@ shape = SubResource("RectangleShape2D_3vyb7")
 [node name="Body" type="Node2D" parent="."]
 scale = Vector2(1.0000001, 1.0000001)
 
+[node name="Shoes" type="Node2D" parent="Body"]
+
+[node name="LeftShoe" type="Sprite2D" parent="Body/Shoes"]
+position = Vector2(-32, 0)
+scale = Vector2(0.9999999, 0.9999999)
+texture = ExtResource("2_p47bc")
+offset = Vector2(0, -30)
+
+[node name="RightShoe" type="Sprite2D" parent="Body/Shoes"]
+position = Vector2(32, 0)
+texture = ExtResource("2_p47bc")
+offset = Vector2(0, -30)
+
 [node name="Hands" type="Node2D" parent="Body"]
-visible = false
-position = Vector2(-3.2782555e-07, -22)
+position = Vector2(0, -39.999992)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Left" type="Sprite2D" parent="Body/Hands"]
-modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
-position = Vector2(-80, 0)
-rotation = 0.17453292
-texture = ExtResource("2_lvxji")
-offset = Vector2(0, -60)
-
-[node name="Right" type="Sprite2D" parent="Body/Hands"]
-modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
-position = Vector2(80, 0)
+[node name="RightHand" type="Sprite2D" parent="Body/Hands"]
+self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
+position = Vector2(80, 10)
 rotation = -0.17453292
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_lvxji")
 offset = Vector2(0, -60)
 flip_h = true
 
+[node name="Axe" type="Sprite2D" parent="Body/Hands/RightHand"]
+position = Vector2(-40.622276, -103.628334)
+rotation = 1.6759936
+scale = Vector2(1.0000002, 1.0000002)
+texture = ExtResource("4_75vfm")
+
+[node name="LeftHand" type="Sprite2D" parent="Body/Hands"]
+self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
+position = Vector2(-80, 10)
+rotation = 0.17453294
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_lvxji")
+offset = Vector2(0, -60)
+
 [node name="Camoflauge" type="Sprite2D" parent="Body"]
-scale = Vector2(1.52, 0.9999998)
 texture = ExtResource("2_dovo2")
 
 [node name="Head" type="Sprite2D" parent="Body"]
-modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
-scale = Vector2(1.3999999, 1.3999999)
+self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
 texture = ExtResource("3_gmlin")
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -142,29 +230,36 @@ wait_time = 0.05
 autostart = true
 
 [node name="UsernameLabel" type="Label" parent="."]
-top_level = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -732.0
-offset_top = -564.0
-offset_right = -559.0
-offset_bottom = -522.0
+offset_left = -92.0
+offset_top = -213.0
+offset_right = 81.0
+offset_bottom = -171.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 30
-text = "Anonymous"
+text = "John Pork"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_p47bc")
 }
-autoplay = "walk"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_je7p5")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack_oneshot/active = false
+parameters/attack_oneshot/internal_active = false
+parameters/attack_oneshot/request = 0
+parameters/movement_blend/blend_amount = 1.0
 
 [connection signal="timeout" from="MovePacketTimer" to="." method="_on_move_packet_timer_timeout"]
