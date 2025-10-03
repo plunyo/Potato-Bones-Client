@@ -34,7 +34,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if id != ServerConnection.client_id:
-		body.global_rotation = lerp(global_rotation, target_rotation, CATCH_UP_SPEED * delta)
+		print(id, " ", target_rotation)
+		body.global_rotation = lerp_angle(body.global_rotation, target_rotation, CATCH_UP_SPEED * delta)
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
 
@@ -63,15 +64,11 @@ func _on_move_packet_timer_timeout() -> void:
 		return
 
 	var pos_changed: bool = last_transform.get_origin().distance_to(body.global_transform.get_origin()) > POS_TOLERANCE
-
-	var last_rot: float = rad_to_deg(last_transform.get_rotation())
-	var cur_rot: float = rad_to_deg(body.global_transform.get_rotation())
-	var angle_delta: float = abs((int(cur_rot - last_rot + 180) % 360) - 180)
-	var angle_changed: bool = angle_delta > ANGLE_TOLERANCE_DEG
+	var angle_changed: bool = global_rotation_degrees > ANGLE_TOLERANCE_DEG
 
 	# only send if position OR rotation changed enough
-	if not pos_changed and not angle_changed:
-		return
+	#if not pos_changed and not angle_changed:
+	#	return
 
 	move_packets_sent += 1
 	ServerConnection.send_packet(
@@ -79,7 +76,7 @@ func _on_move_packet_timer_timeout() -> void:
 		PacketUtils.Outgoing.MOVE,
 		PacketUtils.write_var_int(move_packets_sent),
 		PacketUtils.write_position(global_position),
-		PacketUtils.write_rotation(global_rotation)
+		PacketUtils.write_rotation(body.global_rotation)
 	)
 
 	last_transform = body.global_transform

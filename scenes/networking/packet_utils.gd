@@ -41,13 +41,12 @@ class ReadResult extends Object:
 	func is_fully_read() -> bool:
 		return self.fully_read
 
-const BITS_16: int = 2 << 16
-const BITS_15: int = 2 << 15
+const BITS_16: int = 1 << 16
+const BITS_15: int = 1 << 15
 
 # -------------------- data readers --------------------
 # all return a ReadResult instance
 #region
-
 static func read_var_int(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	var num: int = 0
 	var shift: int = 0
@@ -71,11 +70,12 @@ static func read_count(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult
 	return ReadResult.new(int(res.value), res.next_pos, res.fully_read)
 
 static func read_rotation(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
-	var res: float = bytes.decode_u16(start_pos)
-	return ReadResult.new(
-		(res / (2 << 16)) * 2 * PI,
-		start_pos + 2
-	)
+	if start_pos + 2 > bytes.size():
+		return ReadResult.new(0.0, start_pos, false)
+
+	var raw: int = (bytes[start_pos] << 8) | bytes[start_pos + 1]
+	var angle: float = float(raw) / 65536.0 * TAU
+	return ReadResult.new(angle, start_pos + 2, true)
 
 # generic reader for multiple items
 static func read_multiple(bytes: PackedByteArray, start_pos: int, read_item_func: Callable) -> ReadResult:
@@ -116,7 +116,10 @@ static func read_boolean(bytes: PackedByteArray, start_pos: int = 0) -> ReadResu
 	return ReadResult.new(bool(bytes[start_pos]), start_pos + 1, true)
 
 static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
+	var sequence_res: ReadResult = read_var_int(bytes, start_pos)
+
 	var read_player_item: Callable = func(b: PackedByteArray, p: int) -> ReadResult:
+
 		var id_res: ReadResult = read_var_int(b, p)
 		var pos: int = id_res.next_pos
 
@@ -124,6 +127,7 @@ static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> Re
 		pos = pos_res.next_pos
 
 		var rotation_res: ReadResult = read_rotation(b, pos)
+		#print(b.slice(sequence_res.next_pos))
 
 		return ReadResult.new(
 			{
@@ -134,7 +138,7 @@ static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> Re
 			rotation_res.next_pos
 		)
 
-	return read_multiple(bytes, start_pos, read_player_item)
+	return read_multiple(bytes, sequence_res.next_pos, read_player_item)
 
 static func read_player_names(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	return read_multiple(bytes, start_pos, read_string)
@@ -260,14 +264,12 @@ static func write_position(value: Vector2) -> PackedByteArray:
 
 	return out
 
-static func write_rotation(value: float) -> PackedByteArray:
-	var scaled = int((value / (2 * PI)) * BITS_16) & 0xFFFF
-
-	# split into two bytes
-	var high_byte = (scaled >> 8) & 0xFF
-	var low_byte = scaled & 0xFF
-	
-	return PackedByteArray([high_byte, low_byte])
+static func write_rotation(angle_radians: float) -> PackedByteArray:
+	var value: int = int(angle_radians / (2.0 * PI) * 65536.0) & 0xFFFF
+	var out: PackedByteArray = PackedByteArray()
+	out.append((value >> 8) & 0xFF)
+	out.append(value & 0xFF)
+	return out
 
 static func write_boolean(value: bool) -> PackedByteArray:
 	return PackedByteArray([1 if value else 0])

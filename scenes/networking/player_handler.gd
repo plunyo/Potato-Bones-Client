@@ -11,7 +11,6 @@ func _ready() -> void:
 func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:
 		PacketUtils.Incoming.UPDATE_PLAYERS:
-			print("A")
 			_handle_player_update(PacketUtils.read_player_update(data).value)
 		PacketUtils.Incoming.SYNC_PLAYERS:
 			_handle_player_sync(PacketUtils.read_player_sync(data).value)

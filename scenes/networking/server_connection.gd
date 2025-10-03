@@ -49,7 +49,6 @@ func disconnect_from_server(reason: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/menus/connect/connect_screen.tscn")
 
 # ----------------------- packet handling -----------------------
-# ----------------------- packet handling -----------------------
 func send_packet(protocol: int, packet_id: int, ...data: Array) -> void:
 	# build id + payload
 	var id_bytes: PackedByteArray = PacketUtils.write_var_int(packet_id)
