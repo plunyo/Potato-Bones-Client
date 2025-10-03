@@ -18,11 +18,11 @@ func set_is_host(is_host: bool) -> void:
 
 func _on_kick_button_pressed() -> void:
 	ServerConnection.send_packet(
+		ServerConnection.TCP,
 		PacketUtils.Outgoing.KICK_PLAYER,
 		PacketUtils.write_var_int(id),
 		PacketUtils.write_string("Kicked by host!")
 	)
 
 func _on_change_host_button_pressed() -> void:
-	print("local player id: ", ServerConnection.client_id, ", new host id: ", id)
-	ServerConnection.send_packet(PacketUtils.Outgoing.CHANGE_HOST, PacketUtils.write_var_int(id))
+	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.CHANGE_HOST, PacketUtils.write_var_int(id))
