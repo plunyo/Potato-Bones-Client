@@ -41,7 +41,7 @@ func _handle_player_update(player_list: Array) -> void:
 			players[id].target_position = pos
 			players[id].target_rotation = rot
 		else:
-			_create_player(id, data.get("username", "Anonymous"))
+			_create_player(id, data.get("username", "username didnt get passed through"))
 
 # handle SYNC_PLAYERS packet
 func _handle_player_sync(player_list: Array) -> void:
@@ -54,7 +54,7 @@ func _handle_player_sync(player_list: Array) -> void:
 			continue
 
 		synced_ids.append(id)
-		var username: String = data.get("username", "Anonymous")
+		var username: String = data.get("username", "username didnt get passed through")
 
 		if id in players:
 			var existing: Player = players[id]

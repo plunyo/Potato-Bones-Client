@@ -7,7 +7,7 @@ const ANGLE_TOLERANCE_DEG: float = 3.0
 const NAME_TAG_OFFSET: Vector2 = Vector2(-86.0, -110.0)
 const USER_INTERFACE: PackedScene = preload("uid://c3wm46ftjfvyq") as PackedScene
 const CATCH_UP_SPEED: float = 15.0
-const SPEED: float = 500
+const SPEED: float = 10000
 
 @onready var camera: Camera2D = $Camera
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -34,7 +34,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if id != ServerConnection.client_id:
-		print(id, " ", target_rotation)
 		body.global_rotation = lerp_angle(body.global_rotation, target_rotation, CATCH_UP_SPEED * delta)
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
@@ -42,6 +41,7 @@ func _physics_process(delta: float) -> void:
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction.normalized() * SPEED
 	move_and_slide()
+	global_position = global_position.clamp(Vector2(-PacketUtils.BITS_15, -PacketUtils.BITS_15), Vector2(PacketUtils.BITS_15, PacketUtils.BITS_15))
 
 	if Input.is_action_just_pressed(&"attack"):
 		animation_tree.set(&"parameters/attack_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		)
 	)
 
-	var mouse_pos: Vector2 = get_global_mouse_position()
+	var mouse_pos: Vector2 = get_global_mouse_position() 	
 	var rotation_goal: float = (mouse_pos - global_position).angle() + PI / 2
 	body.global_rotation = lerp_angle(body.global_rotation, rotation_goal, CATCH_UP_SPEED * delta)
 
@@ -67,8 +67,8 @@ func _on_move_packet_timer_timeout() -> void:
 	var angle_changed: bool = global_rotation_degrees > ANGLE_TOLERANCE_DEG
 
 	# only send if position OR rotation changed enough
-	#if not pos_changed and not angle_changed:
-	#	return
+	if not pos_changed and not angle_changed:
+		return
 
 	move_packets_sent += 1
 	ServerConnection.send_packet(
