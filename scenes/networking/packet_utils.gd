@@ -127,7 +127,6 @@ static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> Re
 		pos = pos_res.next_pos
 
 		var rotation_res: ReadResult = read_rotation(b, pos)
-		#print(b.slice(sequence_res.next_pos))
 
 		return ReadResult.new(
 			{

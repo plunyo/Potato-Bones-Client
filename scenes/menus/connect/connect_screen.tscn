@@ -46,7 +46,7 @@ layout_mode = 2
 [node name="IPLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-placeholder_text = "localhost"
+placeholder_text = "pi.plunyo.lol"
 expand_to_text_length = true
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]

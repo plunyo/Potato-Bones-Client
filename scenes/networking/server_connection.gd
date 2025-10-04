@@ -25,8 +25,10 @@ var _has_connected: bool = false
 
 # ----------------------- connection management -----------------------
 func connect_to_server(address: String, port: int) -> void:
-	if not udp_socket.is_bound(): udp_socket.bind(0)
 	udp_socket.set_dest_address(address, port)
+	var err = udp_socket.bind(0)
+	if err != OK:
+		push_error("failed to bind udp socket: %s" % err)
 
 	if tcp_stream.get_status() == StreamPeerTCP.STATUS_CONNECTED:
 		tcp_stream.disconnect_from_host()
@@ -82,9 +84,9 @@ func send_packet(protocol: int, packet_id: int, ...data: Array) -> void:
 			if err != OK:
 				push_error("tcp put_data failed: %s" % err)
 		UDP:
-			var err2 = udp_socket.put_packet(packet)
-			if err2 != OK:
-				push_error("udp put_packet failed: %s" % err2)
+			var err = udp_socket.put_packet(packet)
+			if err != OK:
+				push_error("udp put_packet failed: %s" % err)
 
 
 func _process_packet(packet: PackedByteArray) -> void:
@@ -116,11 +118,6 @@ func _process_packet(packet: PackedByteArray) -> void:
 
 
 func _process_incoming_packets(available: int) -> void:
-	# --- UDP ---
-	while udp_socket.get_available_packet_count() > 0:
-		_process_packet(udp_socket.get_packet())
-
-	# --- TCP ---
 	if available > 0:
 		var chunk = tcp_stream.get_data(available)
 		if typeof(chunk) == TYPE_ARRAY and chunk.size() == 2 and chunk[0] == OK:
@@ -162,6 +159,12 @@ func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 
 
 func _on_poll_timer_timeout() -> void:
+	# --- UDP ---
+	while udp_socket.get_available_packet_count() > 0:
+		var packet: PackedByteArray = udp_socket.get_packet()
+		_process_packet(packet)
+
+	# TCP
 	tcp_stream.poll()
 
 	match tcp_stream.get_status():

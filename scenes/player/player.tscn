@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cd0bhqq5eklx1" path="res://assets/player/head.png" id="3_gmlin"]
 [ext_resource type="Texture2D" uid="uid://drq47twsu1mfb" path="res://assets/player/axe.png" id="4_75vfm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(80, 80)
+[sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
+radius = 50.0
 
 [sub_resource type="Animation" id="Animation_p47bc"]
 length = 0.001
@@ -166,10 +166,11 @@ node_connections = [&"output", 0, &"attack_oneshot", &"attack_oneshot", 0, &"mov
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("username_label")]
 collision_layer = 2
 script = ExtResource("1_8afob")
+zoom_speed = 0.1
 username_label = NodePath("UsernameLabel")
 
-[node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3vyb7")
+[node name="HeadCollider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_75vfm")
 
 [node name="Body" type="Node2D" parent="."]
 scale = Vector2(1.0000001, 1.0000001)
@@ -222,7 +223,6 @@ self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
 texture = ExtResource("3_gmlin")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(0.75, 0.75)
 
 [node name="MovePacketTimer" type="Timer" parent="."]
 wait_time = 0.05

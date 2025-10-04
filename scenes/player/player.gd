@@ -1,19 +1,22 @@
 class_name Player
 extends CharacterBody2D
 
+const MIN_ZOOM: float = 0.3
+const MAX_ZOOM: float = 1.5
 const POS_TOLERANCE: float = 2.0
 const ANGLE_TOLERANCE_DEG: float = 3.0
 
 const NAME_TAG_OFFSET: Vector2 = Vector2(-86.0, -110.0)
 const USER_INTERFACE: PackedScene = preload("uid://c3wm46ftjfvyq") as PackedScene
 const CATCH_UP_SPEED: float = 15.0
-const SPEED: float = 10000
+const SPEED: float = 500
 
 @onready var camera: Camera2D = $Camera
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var body: Node2D = $Body
 
+@export var zoom_speed: float
 @export var username_label: Label
 @export var id: int = -1
 
@@ -24,6 +27,7 @@ var target_position: Vector2
 var target_rotation: float
 
 var move_packets_sent: int = 0
+var target_zoom: Vector2 = Vector2.ONE
 
 func _ready() -> void:
 	if id == ServerConnection.client_id:
@@ -37,6 +41,16 @@ func _physics_process(delta: float) -> void:
 		body.global_rotation = lerp_angle(body.global_rotation, target_rotation, CATCH_UP_SPEED * delta)
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
+
+	if Input.is_action_just_pressed("zoom_in"):
+		target_zoom += Vector2.ONE * zoom_speed
+	elif Input.is_action_just_pressed("zoom_out"):
+		target_zoom -= Vector2.ONE * zoom_speed
+
+	target_zoom.x = clamp(target_zoom.x, MIN_ZOOM, MAX_ZOOM)
+	target_zoom.y = clamp(target_zoom.y, MIN_ZOOM, MAX_ZOOM)
+
+	camera.zoom = camera.zoom.lerp(target_zoom, 0.2)
 
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction.normalized() * SPEED
