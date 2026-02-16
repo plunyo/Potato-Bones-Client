@@ -1,0 +1,41 @@
+[gd_resource type="TileSet" format=3 uid="uid://bg0wm53pnx0dx"]
+
+[ext_resource type="Texture2D" uid="uid://hjd4h6ci4jtl" path="res://assets/testile_map.png" id="1_bkxkm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_olpmc"]
+texture = ExtResource("1_bkxkm")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-25, -25, 25, -25, 25, 25, -25, 25)
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-25, -25, -4.1620197, -25, 25, 4.460829, 25, 25, -25, 25)
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+
+[resource]
+tile_size = Vector2i(50, 50)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_olpmc")

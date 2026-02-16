@@ -1,53 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu141n04nwv1p"]
+[gd_scene format=4 uid="uid://cu141n04nwv1p"]
 
 [ext_resource type="Script" uid="uid://bmyn1bijfued1" path="res://scenes/networking/player_handler.gd" id="1_e05a3"]
+[ext_resource type="TileSet" uid="uid://bg0wm53pnx0dx" path="res://test_tilemap.tres" id="1_olpmc"]
+[ext_resource type="Script" uid="uid://bp2aa0a2n52mb" path="res://scenes/game_map/game_map.gd" id="2_olpmc"]
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node2D" unique_id=1514098766]
 
-[node name="ParallaxBackground" type="Parallax2D" parent="."]
-repeat_size = Vector2(1280, 720)
-repeat_times = 2
+[node name="GameMap" type="TileMapLayer" parent="." unique_id=1936120811]
+tile_map_data = PackedByteArray("AAD0//j/AAAAAAAAAAD0//n/AAAAAAAAAAD0//r/AAAAAAAAAAD0//v/AAAAAAAAAAD0//z/AAAAAAAAAAD0//3/AAAAAAAAAAD0//7/AAAAAAAAAAD0////AAAAAAAAAAD0/wAAAAAAAAAAAAD0/wEAAAAAAAAAAAD0/wIAAAAAAAAAAAD0/wMAAAAAAAAAAAD0/wQAAAAAAAAAAAD0/wUAAAAAAAAAAAD0/wYAAAAAAAAAAAD0/wcAAAAAAAAAAAD0/wgAAAAAAAAAAAD0/wkAAAAAAAAAAAD0//f/AAAAAAAAAAD1//f/AAAAAAAAAAD2//f/AAAAAAAAAAD3//f/AAAAAAAAAAD4//f/AAAAAAAAAAD5//f/AAAAAAAAAAD6//f/AAAAAAAAAAD7//f/AAAAAAAAAAD8//f/AAAAAAAAAAD9//f/AAAAAAAAAAD+//f/AAAAAAAAAAD///f/AAAAAAAAAAAAAPf/AAAAAAAAAAABAPf/AAAAAAAAAAACAPf/AAAAAAAAAAADAPf/AAAAAAAAAAAEAPf/AAAAAAAAAAAFAPf/AAAAAAAAAAAGAPf/AAAAAAAAAAAHAPf/AAAAAAAAAAD1/wkAAAAAAAAAAAD2/wkAAAAAAAAAAAD3/wkAAAAAAAAAAAD4/wkAAAACAAAAAAD4/woAAAAAAAAAAAD4/wsAAAAAAAAAAAD4/wwAAAAAAAAAAAD4/w0AAAAAAAAAAAD5/w0AAAAAAAAAAAD6/w0AAAAAAAAAAAD7/w0AAAAAAAAAAAD8/w0AAAAAAAAAAAD9/w0AAAAAAAAAAAD+/w0AAAAAAAAAAAD//w0AAAAAAAAAAAAAAA0AAAAAAAAAAAABAA0AAAAAAAAAAAACAA0AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAIAA0AAAAAAAAAAAAIAPf/AAACAAAAAAAIAPj/AAAAAAAAAAAIAPn/AAAAAAAAAAAIAPr/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAAAAAAAAAAIAP3/AAAAAAAAAAAIAP7/AAAAAAAAAAAIAP//AAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAcAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAsAAAAAAAAAAAAIAAwAAAAAAAAAAAD5/woAAAABAAAAAAD5/wsAAAABAAAAAAD5/wwAAAABAAAAAAD6/woAAAABAAAAAAD6/wsAAAABAAAAAAD6/wwAAAABAAAAAAD7/woAAAABAAAAAAD7/wsAAAABAAAAAAD7/wwAAAABAAAAAAD8/woAAAABAAAAAAD8/wsAAAABAAAAAAD8/wwAAAABAAAAAAD9/woAAAABAAAAAAD9/wsAAAABAAAAAAD9/wwAAAABAAAAAAD+/woAAAABAAAAAAD+/wsAAAABAAAAAAD+/wwAAAABAAAAAAD//woAAAABAAAAAAD//wsAAAABAAAAAAD//wwAAAABAAAAAAAAAAoAAAABAAAAAAAAAAsAAAABAAAAAAAAAAwAAAABAAAAAAABAAoAAAABAAAAAAABAAsAAAABAAAAAAABAAwAAAABAAAAAAACAAoAAAABAAAAAAACAAsAAAABAAAAAAACAAwAAAABAAAAAAADAAoAAAABAAAAAAADAAsAAAABAAAAAAADAAwAAAABAAAAAAAEAAoAAAABAAAAAAAEAAsAAAABAAAAAAAEAAwAAAABAAAAAAAFAAoAAAABAAAAAAAFAAsAAAABAAAAAAAFAAwAAAABAAAAAAAGAAoAAAABAAAAAAAGAAsAAAABAAAAAAAGAAwAAAABAAAAAAAHAAoAAAABAAAAAAAHAAsAAAABAAAAAAAHAAwAAAABAAAAAAA=")
+tile_set = ExtResource("1_olpmc")
+script = ExtResource("2_olpmc")
+metadata/_custom_type_script = "uid://bp2aa0a2n52mb"
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect6" type="ColorRect" parent="ParallaxBackground"]
-offset_left = -220.0
-offset_top = -152.0
-offset_right = -180.0
-offset_bottom = -112.0
-
-[node name="ColorRect7" type="ColorRect" parent="ParallaxBackground"]
-offset_left = 40.0
-offset_top = -234.0
-offset_right = 80.0
-offset_bottom = -194.0
-
-[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground"]
-offset_left = 300.0
-offset_top = 256.0
-offset_right = 340.0
-offset_bottom = 296.0
-
-[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground"]
-offset_left = 534.0
-offset_top = 119.0
-offset_right = 574.0
-offset_bottom = 159.0
-
-[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground"]
-offset_left = 810.0
-offset_top = 409.0
-offset_right = 850.0
-offset_bottom = 449.0
-
-[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground"]
-offset_left = 499.0
-offset_top = 591.0
-offset_right = 539.0
-offset_bottom = 631.0
-
-[node name="PlayerHandler" type="Node2D" parent="."]
+[node name="PlayerHandler" type="Node2D" parent="." unique_id=1020424092]
 y_sort_enabled = true
 script = ExtResource("1_e05a3")

@@ -122,15 +122,13 @@ func _process_incoming_packets(available: int) -> void:
 		var chunk = tcp_stream.get_data(available)
 		if typeof(chunk) == TYPE_ARRAY and chunk.size() == 2 and chunk[0] == OK:
 			_incoming_buffer.append_array(chunk[1])
-			# only clear if processing consumed everything
+
 			var before_size = _incoming_buffer.size()
 			_process_packet(_incoming_buffer)
-			# if everything parsed, clear buffer
-			# (this is heuristic; keep leftover data if we didn't consume all bytes)
+
 			if _incoming_buffer.size() == before_size:
 				_incoming_buffer.clear()
 		else:
-			# either no data or error
 			if typeof(chunk) == TYPE_ARRAY:
 				push_error("tcp get_data error: %s" % chunk[0])
 

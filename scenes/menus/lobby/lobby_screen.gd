@@ -25,7 +25,8 @@ func request_lobby_list() -> void:
 func _on_received_packed(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:
 		PacketUtils.Incoming.JOIN_ACCEPT:
-			get_tree().change_scene_to_file("uid://cu141n04nwv1p")
+			get_tree().change_scene_to_packed(preload("uid://cu141n04nwv1p"))
+
 		PacketUtils.Incoming.LOBBY_LIST:
 			for child: Lobby in lobby_container.get_children(): child.queue_free()
 

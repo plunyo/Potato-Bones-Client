@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhg05mub2lnxf"]
+[gd_scene format=3 uid="uid://dhg05mub2lnxf"]
 
 [ext_resource type="Script" uid="uid://bb8x7bleyp03" path="res://scenes/menus/connect/connect_screen.gd" id="1_40v8f"]
 
-[node name="ConnectScreen" type="Control" node_paths=PackedStringArray("ip_line_edit", "port_line_edit")]
+[node name="ConnectScreen" type="Control" unique_id=1912422394 node_paths=PackedStringArray("ip_line_edit", "port_line_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ script = ExtResource("1_40v8f")
 ip_line_edit = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/IPLineEdit")
 port_line_edit = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PortLineEdit")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=602469994]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -27,49 +27,49 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1717254801]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=350898932]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=1207058976]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=94872575]
 layout_mode = 2
 
-[node name="IPLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="IPLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=264995315]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 placeholder_text = "pi.plunyo.lol"
 expand_to_text_length = true
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1742560469]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = ":"
 
-[node name="PortLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PortLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1946279848]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 placeholder_text = "4206"
 expand_to_text_length = true
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1170689857]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=869452916]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Connect"
 
-[node name="ErrorMessageContainer" type="VBoxContainer" parent="."]
+[node name="ErrorMessageContainer" type="VBoxContainer" parent="." unique_id=363888741]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -83,7 +83,7 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 2
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="." unique_id=932942958]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

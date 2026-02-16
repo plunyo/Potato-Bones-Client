@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://nktph0qyqjgy"]
+[gd_scene format=3 uid="uid://nktph0qyqjgy"]
 
 [ext_resource type="Script" uid="uid://pm01miow0fbf" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://gbsyyo80jlro" path="res://assets/player/outfits/camoflauge.png" id="2_dovo2"]
@@ -163,36 +163,36 @@ nodes/movement_blend/node = SubResource("AnimationNodeBlend2_75vfm")
 nodes/movement_blend/position = Vector2(114.28571, 22.857143)
 node_connections = [&"output", 0, &"attack_oneshot", &"attack_oneshot", 0, &"movement_blend", &"attack_oneshot", 1, &"Animation 3", &"movement_blend", 0, &"idle", &"movement_blend", 1, &"walk"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("username_label")]
+[node name="Player" type="CharacterBody2D" unique_id=1502206416 node_paths=PackedStringArray("username_label")]
 collision_layer = 2
 script = ExtResource("1_8afob")
 zoom_speed = 0.1
 username_label = NodePath("UsernameLabel")
 
-[node name="HeadCollider" type="CollisionShape2D" parent="."]
+[node name="HeadCollider" type="CollisionShape2D" parent="." unique_id=1230407256]
 shape = SubResource("CircleShape2D_75vfm")
 
-[node name="Body" type="Node2D" parent="."]
+[node name="Body" type="Node2D" parent="." unique_id=1286985539]
 scale = Vector2(1.0000001, 1.0000001)
 
-[node name="Shoes" type="Node2D" parent="Body"]
+[node name="Shoes" type="Node2D" parent="Body" unique_id=323013729]
 
-[node name="LeftShoe" type="Sprite2D" parent="Body/Shoes"]
+[node name="LeftShoe" type="Sprite2D" parent="Body/Shoes" unique_id=1996696785]
 position = Vector2(-32, 0)
 scale = Vector2(0.9999999, 0.9999999)
 texture = ExtResource("2_p47bc")
 offset = Vector2(0, -30)
 
-[node name="RightShoe" type="Sprite2D" parent="Body/Shoes"]
+[node name="RightShoe" type="Sprite2D" parent="Body/Shoes" unique_id=1327302692]
 position = Vector2(32, 0)
 texture = ExtResource("2_p47bc")
 offset = Vector2(0, -30)
 
-[node name="Hands" type="Node2D" parent="Body"]
+[node name="Hands" type="Node2D" parent="Body" unique_id=944296849]
 position = Vector2(0, -39.999992)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="RightHand" type="Sprite2D" parent="Body/Hands"]
+[node name="RightHand" type="Sprite2D" parent="Body/Hands" unique_id=1803025292]
 self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
 position = Vector2(80, 10)
 rotation = -0.17453292
@@ -201,13 +201,13 @@ texture = ExtResource("2_lvxji")
 offset = Vector2(0, -60)
 flip_h = true
 
-[node name="Axe" type="Sprite2D" parent="Body/Hands/RightHand"]
+[node name="Axe" type="Sprite2D" parent="Body/Hands/RightHand" unique_id=661452928]
 position = Vector2(-40.622276, -103.628334)
 rotation = 1.6759936
 scale = Vector2(1.0000002, 1.0000002)
 texture = ExtResource("4_75vfm")
 
-[node name="LeftHand" type="Sprite2D" parent="Body/Hands"]
+[node name="LeftHand" type="Sprite2D" parent="Body/Hands" unique_id=1775538029]
 self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
 position = Vector2(-80, 10)
 rotation = 0.17453294
@@ -215,20 +215,20 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("2_lvxji")
 offset = Vector2(0, -60)
 
-[node name="Camoflauge" type="Sprite2D" parent="Body"]
+[node name="Camoflauge" type="Sprite2D" parent="Body" unique_id=745056179]
 texture = ExtResource("2_dovo2")
 
-[node name="Head" type="Sprite2D" parent="Body"]
+[node name="Head" type="Sprite2D" parent="Body" unique_id=329936068]
 self_modulate = Color(0.9490196, 0.81960785, 0.7019608, 1)
 texture = ExtResource("3_gmlin")
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." unique_id=841913009]
 
-[node name="MovePacketTimer" type="Timer" parent="."]
+[node name="MovePacketTimer" type="Timer" parent="." unique_id=159797959]
 wait_time = 0.05
 autostart = true
 
-[node name="UsernameLabel" type="Label" parent="."]
+[node name="UsernameLabel" type="Label" parent="." unique_id=2102467879]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -248,12 +248,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_p47bc")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1017700801]
+libraries/ = SubResource("AnimationLibrary_p47bc")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=33040839]
 tree_root = SubResource("AnimationNodeBlendTree_je7p5")
 anim_player = NodePath("../AnimationPlayer")
 parameters/attack_oneshot/active = false

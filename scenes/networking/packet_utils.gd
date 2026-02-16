@@ -14,6 +14,7 @@ enum Outgoing {
 	REQUEST_LOBBY_SYNC = 0x0B,
 	REQUEST_SESSION_ID = 0x0C,
 }
+
 enum Incoming {
 	JOIN_ACCEPT = 0x00,
 	JOIN_DENY = 0x01,
@@ -80,39 +81,50 @@ static func read_rotation(bytes: PackedByteArray, start_pos: int = 0) -> ReadRes
 # generic reader for multiple items
 static func read_multiple(bytes: PackedByteArray, start_pos: int, read_item_func: Callable) -> ReadResult:
 	var count_res: ReadResult = read_count(bytes, start_pos)
+
 	if not count_res.fully_read:
 		return ReadResult.new([], count_res.next_pos, false)
+
 	var items: Array = []
 	var pos: int = count_res.next_pos
+
 	for i: int in range(count_res.value):
 		var item_res: ReadResult = read_item_func.call(bytes, pos)
 		items.append(item_res.value)
 		pos = item_res.next_pos
+
 		if not item_res.fully_read:
 			return ReadResult.new(items, pos, false)
+
 	return ReadResult.new(items, pos, true)
 
 static func read_string(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	var len_res: ReadResult = read_var_int(bytes, start_pos)
 	var length: int = len_res.value
 	var pos: int = len_res.next_pos
+
 	if pos + length > bytes.size():
 		# not enough bytes for the full string
 		return ReadResult.new("", pos, false)
+
 	var str_bytes: PackedByteArray = bytes.slice(pos, pos + length)
+
 	return ReadResult.new(str_bytes.get_string_from_utf8(), pos + length, true)
 
 static func read_position(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	var pos: int = start_pos
 	if pos + 4 > bytes.size():
 		return ReadResult.new(Vector2.ZERO, pos, false)
+
 	var x: int = (bytes[pos] << 8) | bytes[pos + 1]
 	var y: int = (bytes[pos + 2] << 8) | bytes[pos + 3]
+
 	return ReadResult.new(Vector2(x - BITS_15, y - BITS_15), pos + 4, true)
 
 static func read_boolean(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	if start_pos >= bytes.size():
 		return ReadResult.new(false, start_pos, false)
+
 	return ReadResult.new(bool(bytes[start_pos]), start_pos + 1, true)
 
 static func read_player_update(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
@@ -145,26 +157,32 @@ static func read_player_names(bytes: PackedByteArray, start_pos: int = 0) -> Rea
 static func read_lobby_list(bytes: PackedByteArray, start_pos: int = 0) -> ReadResult:
 	var read_lobby_item: Callable = func(b: PackedByteArray, p: int) -> ReadResult:
 		var id_res: ReadResult = read_var_int(b, p)
+
 		if not id_res.fully_read:
 			return ReadResult.new({}, id_res.next_pos, false)
+
 		var lobby_id: int = id_res.value
 		var pos: int = id_res.next_pos
 
 		var name_res: ReadResult = read_string(b, pos)
 		if not name_res.fully_read:
 			return ReadResult.new({}, name_res.next_pos, false)
+
 		var lobby_name: String = name_res.value
 		pos = name_res.next_pos
 
 		var host_id_res: ReadResult = read_var_int(b, pos)
+
 		if not host_id_res.fully_read:
 			return ReadResult.new({}, host_id_res.next_pos, false)
+
 		var host_id: int = host_id_res.value
 		pos = host_id_res.next_pos
 
 		var player_names_res: ReadResult = read_player_names(b, pos)
 		if not player_names_res.fully_read:
 			return ReadResult.new({}, player_names_res.next_pos, false)
+
 		var player_names: PackedStringArray = player_names_res.value
 		pos = player_names_res.next_pos
 
@@ -206,6 +224,7 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Read
 		var id_res: ReadResult = read_var_int(b, local_pos)
 		if not id_res.fully_read:
 			return ReadResult.new({}, id_res.next_pos, false)
+
 		var player_id: int = id_res.value
 		local_pos = id_res.next_pos
 
@@ -213,6 +232,7 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Read
 		var name_res: ReadResult = read_string(b, local_pos)
 		if not name_res.fully_read:
 			return ReadResult.new({}, name_res.next_pos, false)
+
 		var username: String = name_res.value
 		local_pos = name_res.next_pos
 
@@ -234,21 +254,28 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Read
 static func write_var_int(value: int) -> PackedByteArray:
 	var v: int = value
 	var out: PackedByteArray = PackedByteArray()
+
 	while true:
 		var byte: int = v & 0x7F
 		v >>= 7
+
 		if v != 0:
 			byte |= 0x80
+
 		out.append(byte)
+
 		if v == 0:
 			break
+
 	return out
 
 static func write_string(value: String) -> PackedByteArray:
 	var text_bytes: PackedByteArray = value.to_utf8_buffer()
 	var out: PackedByteArray = PackedByteArray()
+
 	out.append_array(write_var_int(text_bytes.size()))
 	out.append_array(text_bytes)
+
 	return out
 
 static func write_position(value: Vector2) -> PackedByteArray:
@@ -266,8 +293,10 @@ static func write_position(value: Vector2) -> PackedByteArray:
 static func write_rotation(angle_radians: float) -> PackedByteArray:
 	var value: int = int(angle_radians / (2.0 * PI) * 65536.0) & 0xFFFF
 	var out: PackedByteArray = PackedByteArray()
+
 	out.append((value >> 8) & 0xFF)
 	out.append(value & 0xFF)
+
 	return out
 
 static func write_boolean(value: bool) -> PackedByteArray:
