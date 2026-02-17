@@ -244,7 +244,6 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Read
 	var players_res: ReadResult = read_multiple(bytes, pos, read_sync_item)
 	return ReadResult.new(players_res.value, players_res.next_pos, players_res.fully_read)
 
-
 #endregion
 
 # -------------------- writers --------------------

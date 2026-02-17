@@ -25,8 +25,10 @@ var _has_connected: bool = false
 
 # ----------------------- connection management -----------------------
 func connect_to_server(address: String, port: int) -> void:
+	udp_socket.close()
+
 	udp_socket.set_dest_address(address, port)
-	var err = udp_socket.bind(0)
+	var err: Error = udp_socket.bind(54000)
 	if err != OK:
 		push_error("failed to bind udp socket: %s" % err)
 
@@ -46,6 +48,7 @@ func disconnect_from_server(reason: String) -> void:
 	tcp_stream.disconnect_from_host()
 	poll_timer.stop()
 	disconnected.emit(reason)
+
 	print("reason: ", reason)
 	_has_connected = false
 	get_tree().change_scene_to_file("res://scenes/menus/connect/connect_screen.tscn")
@@ -61,7 +64,6 @@ func send_packet(protocol: int, packet_id: int, ...data: Array) -> void:
 
 	var length_bytes: PackedByteArray = PacketUtils.write_var_int(packet_length)
 
-	# if UDP we prefix session_id bytes (your original intent). keep it clear.
 	var packet: PackedByteArray = PackedByteArray()
 	if protocol == UDP:
 		if session_id == null:

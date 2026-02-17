@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://lp435bqgilpb"]
+[gd_scene format=3 uid="uid://lp435bqgilpb"]
 
 [ext_resource type="Script" uid="uid://dp42tpdgbqkip" path="res://scenes/menus/lobby/lobby_screen.gd" id="1_ta01r"]
 [ext_resource type="Texture2D" uid="uid://8tfx1ceh73ov" path="res://assets/icons/refresh.svg" id="2_ceejg"]
 
-[node name="LobbyScreen" type="MarginContainer"]
+[node name="LobbyScreen" type="MarginContainer" unique_id=723526007]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,17 +17,17 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 script = ExtResource("1_ta01r")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=248608873]
 layout_mode = 2
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=317888236]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 20
 tab_alignment = 1
 current_tab = 0
 
-[node name="Join Lobby" type="MarginContainer" parent="VBoxContainer/TabContainer"]
+[node name="Join Lobby" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=450405106]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
@@ -35,55 +35,55 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby" unique_id=2113004032]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer" unique_id=2124531069]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer" unique_id=1913344429]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer" unique_id=34412426]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer" unique_id=1651213939]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1739789382]
 layout_mode = 2
 
-[node name="LobbyLabel" type="Label" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LobbyLabel" type="Label" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1937266933]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 text = "Lobbies"
 horizontal_alignment = 1
 
-[node name="RefreshButton" type="Button" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RefreshButton" type="Button" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2066676370]
 layout_mode = 2
 icon = ExtResource("2_ceejg")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2007401249]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=679422170]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LobbyContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="LobbyContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Join Lobby/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1665541213]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Create Lobby" type="MarginContainer" parent="VBoxContainer/TabContainer"]
+[node name="Create Lobby" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=389699693]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
@@ -92,48 +92,48 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Create Lobby"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Create Lobby" unique_id=704162986]
 layout_mode = 2
 
-[node name="LobbyNameLineEdit" type="LineEdit" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer"]
+[node name="LobbyNameLineEdit" type="LineEdit" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer" unique_id=769213851]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 placeholder_text = "Anonymous's Lobby"
 expand_to_text_length = true
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer" unique_id=1088151990]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="CreateLobbyButton" type="Button" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer"]
+[node name="CreateLobbyButton" type="Button" parent="VBoxContainer/TabContainer/Create Lobby/VBoxContainer" unique_id=535966158]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Create Lobby "
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1403442288]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1709564431]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=459898199]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PanelContainer" unique_id=900036520]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/MarginContainer" unique_id=872929444]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.62352943)
 theme_override_font_sizes/font_size = 24
 text = "Username: "
 
-[node name="UsernameLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="UsernameLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=50129107]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3

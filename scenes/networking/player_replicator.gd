@@ -9,10 +9,15 @@ func _ready() -> void:
 	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.REQUEST_PLAYER_SYNC)
 
 func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
+	print("recv packet id: ", packet_id)
+
 	match packet_id:
 		PacketUtils.Incoming.UPDATE_PLAYERS:
+			print("recieving update")
 			_handle_player_update(PacketUtils.read_player_update(data).value)
+
 		PacketUtils.Incoming.SYNC_PLAYERS:
+			print("recieving sync")
 			_handle_player_sync(PacketUtils.read_player_sync(data).value)
 
 # helper to create a new player

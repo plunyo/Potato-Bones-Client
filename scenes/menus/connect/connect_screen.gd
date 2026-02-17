@@ -29,8 +29,8 @@ func _on_button_pressed() -> void:
 	if port_str.is_valid_int():
 		port = int(port_str)
 	else:
-		spawn_error("Invalid port: '%s'. Using default port 30000" % port_str)
-		port = 30000
+		spawn_error("Invalid port: '%s'. Using default port 4206" % port_str)
+		port = 4206
 
 	ServerConnection.connect_to_server(ip, port)
 	status_label.text = CONNECTING_TO_SERVER_MESSAGE
@@ -48,6 +48,7 @@ func _on_recieved_packet(packet_id: int, _data: PackedByteArray) -> void:
 
 func _on_server_connection_connected() -> void:
 	status_label.text = CONNECTED_TO_SERVER_MESSAGE
+
 	ServerConnection.send_packet(
 		ServerConnection.TCP,
 		PacketUtils.Outgoing.REQUEST_SESSION_ID

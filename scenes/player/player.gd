@@ -7,7 +7,6 @@ const POS_TOLERANCE: float = 2.0
 const ANGLE_TOLERANCE_DEG: float = 3.0
 
 const NAME_TAG_OFFSET: Vector2 = Vector2(-86.0, -110.0)
-const USER_INTERFACE: PackedScene = preload("uid://c3wm46ftjfvyq") as PackedScene
 const CATCH_UP_SPEED: float = 15.0
 const SPEED: float = 500
 
@@ -30,9 +29,6 @@ var move_packets_sent: int = 0
 var target_zoom: Vector2 = Vector2.ONE
 
 func _ready() -> void:
-	if id == ServerConnection.client_id:
-		add_child(USER_INTERFACE.instantiate() as UserInterface)
-
 	last_transform = body.global_transform
 	username_label.text = username
 

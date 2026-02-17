@@ -18,5 +18,5 @@ func generate_pbtiles(path: String) -> void:
 		if tile_data and tile_data.get_collision_polygons_count(0) > 0:
 			collision_data[atlas_coords] = tile_data.get_collision_polygon_points(0, 0)
 
-	file.store_var(collision_data)
+	file.store_string(str(collision_data))
 	file.close()

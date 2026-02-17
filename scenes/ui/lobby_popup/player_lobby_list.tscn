@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyaor04qfmrey"]
+[gd_scene format=3 uid="uid://dyaor04qfmrey"]
 
 [ext_resource type="Texture2D" uid="uid://5ura0hwailm8" path="res://assets/icons/kick.svg" id="1_c1xqf"]
-[ext_resource type="Script" uid="uid://qlyotkb87q8x" path="res://scenes/player/ui/lobby_popup/player_lobby_list.gd" id="1_w8c5v"]
+[ext_resource type="Script" uid="uid://qlyotkb87q8x" path="res://scenes/ui/lobby_popup/player_lobby_list.gd" id="1_w8c5v"]
 [ext_resource type="Texture2D" uid="uid://jt47ofxsm2bh" path="res://assets/icons/change_host.svg" id="2_w8c5v"]
 
 [node name="PlayerLobbyPopup" type="PanelContainer"]

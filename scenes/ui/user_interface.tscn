@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3wm46ftjfvyq"]
+[gd_scene format=3 uid="uid://c3wm46ftjfvyq"]
 
 [ext_resource type="Texture2D" uid="uid://i77y64uwhc8e" path="res://assets/icons/lobby.svg" id="1_3sye7"]
-[ext_resource type="Script" uid="uid://cjci826drkowp" path="res://scenes/player/ui/user_interface.gd" id="1_wbj5x"]
+[ext_resource type="Script" uid="uid://cjci826drkowp" path="res://scenes/ui/user_interface.gd" id="1_wbj5x"]
 [ext_resource type="Texture2D" uid="uid://cfi5ui4od0rwh" path="res://assets/icons/menu.svg" id="2_ah2hq"]
-[ext_resource type="Script" uid="uid://bskd11e3augak" path="res://scenes/player/ui/lobby_popup/lobby_popup_container.gd" id="4_er14q"]
+[ext_resource type="Script" uid="uid://bskd11e3augak" path="res://scenes/ui/lobby_popup/lobby_popup_container.gd" id="4_er14q"]
 [ext_resource type="Texture2D" uid="uid://7egmi4y8aefm" path="res://assets/icons/exit.svg" id="5_wbj5x"]
 
 [node name="UserInterface" type="CanvasLayer"]
