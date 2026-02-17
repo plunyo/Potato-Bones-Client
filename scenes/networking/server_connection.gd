@@ -23,14 +23,16 @@ var client_id: int
 var _incoming_buffer: PackedByteArray = PackedByteArray()
 var _has_connected: bool = false
 
-# ----------------------- connection management -----------------------
 func connect_to_server(address: String, port: int) -> void:
 	udp_socket.close()
 
-	udp_socket.set_dest_address(address, port)
-	var err: Error = udp_socket.bind(54000)
+	var err: Error = udp_socket.bind(0)
 	if err != OK:
 		push_error("failed to bind udp socket: %s" % err)
+
+	udp_socket.set_dest_address(address, port)
+
+	print("udp_port: ", udp_socket.get_local_port())
 
 	if tcp_stream.get_status() == StreamPeerTCP.STATUS_CONNECTED:
 		tcp_stream.disconnect_from_host()
@@ -39,6 +41,8 @@ func connect_to_server(address: String, port: int) -> void:
 	if error != OK:
 		connection_failed.emit()
 		return
+
+	print("tcp_port: ", tcp_stream.get_local_port())
 
 	poll_timer.start()
 	deadline_timer.start()
@@ -53,7 +57,6 @@ func disconnect_from_server(reason: String) -> void:
 	_has_connected = false
 	get_tree().change_scene_to_file("res://scenes/menus/connect/connect_screen.tscn")
 
-# ----------------------- packet handling -----------------------
 func send_packet(protocol: int, packet_id: int, ...data: Array) -> void:
 	# build id + payload
 	var id_bytes: PackedByteArray = PacketUtils.write_var_int(packet_id)
@@ -134,7 +137,6 @@ func _process_incoming_packets(available: int) -> void:
 			if typeof(chunk) == TYPE_ARRAY:
 				push_error("tcp get_data error: %s" % chunk[0])
 
-# ----------------------- signal callbacks -----------------------
 func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 	match packet_id:
 		PacketUtils.Incoming.JOIN_ACCEPT:
@@ -161,6 +163,7 @@ func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 func _on_poll_timer_timeout() -> void:
 	# --- UDP ---
 	while udp_socket.get_available_packet_count() > 0:
+		print("ASASDASD")
 		var packet: PackedByteArray = udp_socket.get_packet()
 		_process_packet(packet)
 
@@ -184,7 +187,6 @@ func _on_poll_timer_timeout() -> void:
 			disconnect_from_server(
 				"Unable to connect: server may not be running or network is unreachable."
 			)
-
 
 func _on_deadline_timer_timeout() -> void:
 	if tcp_stream.get_status() == StreamPeerTCP.STATUS_CONNECTING:
