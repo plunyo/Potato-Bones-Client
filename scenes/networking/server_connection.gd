@@ -32,8 +32,6 @@ func connect_to_server(address: String, port: int) -> void:
 
 	udp_socket.set_dest_address(address, port)
 
-	print("udp_port: ", udp_socket.get_local_port())
-
 	if tcp_stream.get_status() == StreamPeerTCP.STATUS_CONNECTED:
 		tcp_stream.disconnect_from_host()
 
@@ -41,8 +39,6 @@ func connect_to_server(address: String, port: int) -> void:
 	if error != OK:
 		connection_failed.emit()
 		return
-
-	print("tcp_port: ", tcp_stream.get_local_port())
 
 	poll_timer.start()
 	deadline_timer.start()
@@ -53,7 +49,7 @@ func disconnect_from_server(reason: String) -> void:
 	poll_timer.stop()
 	disconnected.emit(reason)
 
-	print("reason: ", reason)
+	ErrorOverlay.spawn_error("Disconnected from server, reason: " + reason)
 	_has_connected = false
 	get_tree().change_scene_to_file("res://scenes/menus/connect/connect_screen.tscn")
 
@@ -149,7 +145,9 @@ func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 
 		PacketUtils.Incoming.JOIN_DENY:
 			var deny_reason_res: PacketUtils.ReadResult = PacketUtils.read_string(data)
-			disconnect_from_server("Join denied: %s" % deny_reason_res.value)
+			print(deny_reason_res.value)
+			ErrorOverlay.spawn_error("Join Denied: " + deny_reason_res.value)
+			get_tree().change_scene_to_file("uid://lp435bqgilpb")
 
 		PacketUtils.Incoming.PING:
 			send_packet(TCP, PacketUtils.Outgoing.PONG, data)
@@ -157,13 +155,13 @@ func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
 		PacketUtils.Incoming.KICK_PLAYER:
 			var kick_reason_res: PacketUtils.ReadResult = PacketUtils.read_string(data)
 			print(kick_reason_res.value)
+			ErrorOverlay.popup_kick_dialog(kick_reason_res.value)
 			get_tree().change_scene_to_file("uid://lp435bqgilpb")
 
 
 func _on_poll_timer_timeout() -> void:
 	# --- UDP ---
 	while udp_socket.get_available_packet_count() > 0:
-		print("ASASDASD")
 		var packet: PackedByteArray = udp_socket.get_packet()
 		_process_packet(packet)
 

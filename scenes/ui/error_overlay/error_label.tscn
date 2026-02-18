@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cgplw77ka8i2o"]
+
+[sub_resource type="Animation" id="Animation_cluj1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hdfey"]
+resource_name = "fade n delte"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.6, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_68bak"]
+_data = {
+&"RESET": SubResource("Animation_cluj1"),
+&"fade n delte": SubResource("Animation_hdfey")
+}
+
+[node name="ErrorLabel" type="Label" unique_id=241531199]
+offset_right = 1131.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.76020277, 3.6820024e-06, 5.7756904e-07, 1)
+theme_override_font_sizes/font_size = 25
+text = "Error"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=771832185]
+libraries/ = SubResource("AnimationLibrary_68bak")
+autoplay = &"fade n delte"

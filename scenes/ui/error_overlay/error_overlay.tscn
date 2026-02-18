@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dnexw3q05nnjm"]
+
+[ext_resource type="Script" uid="uid://bw7labn0f1cn8" path="res://scenes/ui/error_overlay/error_overlay.gd" id="1_hjkrf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjkrf"]
+bg_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+
+[node name="ErrorOverlay" type="CanvasLayer" unique_id=143976866]
+script = ExtResource("1_hjkrf")
+
+[node name="KickDialog" type="AcceptDialog" parent="." unique_id=1593316689]
+oversampling_override = 1.0
+title = "You've been kicked!"
+initial_position = 1
+size = Vector2i(300, 150)
+content_scale_mode = 1
+content_scale_aspect = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hjkrf")
+dialog_text = "because u fucking suck"
+
+[node name="ErrorContainer" type="VBoxContainer" parent="." unique_id=1099259434]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2

@@ -4,34 +4,34 @@
 [ext_resource type="Script" uid="uid://qlyotkb87q8x" path="res://scenes/ui/lobby_popup/player_lobby_list.gd" id="1_w8c5v"]
 [ext_resource type="Texture2D" uid="uid://jt47ofxsm2bh" path="res://assets/icons/change_host.svg" id="2_w8c5v"]
 
-[node name="PlayerLobbyPopup" type="PanelContainer"]
+[node name="PlayerLobbyPopup" type="PanelContainer" unique_id=1248557171]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_w8c5v")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1252853698]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1028901581]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="UsernameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="UsernameLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1853564034]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 25
 text = "John Pork"
 
-[node name="KickButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="KickButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1609962993]
 visible = false
 layout_mode = 2
 icon = ExtResource("1_c1xqf")
 
-[node name="ChangeHostButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="ChangeHostButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=227095406]
 visible = false
 layout_mode = 2
 icon = ExtResource("2_w8c5v")

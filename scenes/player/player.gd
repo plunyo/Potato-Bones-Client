@@ -4,7 +4,7 @@ extends CharacterBody2D
 const MIN_ZOOM: float = 0.3
 const MAX_ZOOM: float = 1.5
 const POS_TOLERANCE: float = 2.0
-const ANGLE_TOLERANCE_DEG: float = 3.0
+const ANGLE_TOLERANCE: float = deg_to_rad(3.0)
 
 const NAME_TAG_OFFSET: Vector2 = Vector2(-86.0, -110.0)
 const CATCH_UP_SPEED: float = 15.0
@@ -28,12 +28,15 @@ var target_rotation: float
 var move_packets_sent: int = 0
 var target_zoom: Vector2 = Vector2.ONE
 
+var local_player: bool = false
+
 func _ready() -> void:
 	last_transform = body.global_transform
 	username_label.text = username
+	local_player = id == ServerConnection.client_id
 
 func _physics_process(delta: float) -> void:
-	if id != ServerConnection.client_id:
+	if not local_player:
 		body.global_rotation = lerp_angle(body.global_rotation, target_rotation, CATCH_UP_SPEED * delta)
 		global_position = global_position.lerp(target_position, CATCH_UP_SPEED * delta)
 		return
@@ -70,11 +73,11 @@ func _physics_process(delta: float) -> void:
 	body.global_rotation = lerp_angle(body.global_rotation, rotation_goal, CATCH_UP_SPEED * delta)
 
 func _on_move_packet_timer_timeout() -> void:
-	if id != ServerConnection.client_id:
+	if not local_player:
 		return
 
 	var pos_changed: bool = last_transform.get_origin().distance_to(body.global_transform.get_origin()) > POS_TOLERANCE
-	var angle_changed: bool = global_rotation_degrees > ANGLE_TOLERANCE_DEG
+	var angle_changed: bool = abs(body.global_rotation - last_transform.get_rotation()) > ANGLE_TOLERANCE 
 
 	# only send if position OR rotation changed enough
 	if not pos_changed and not angle_changed:

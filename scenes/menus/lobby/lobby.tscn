@@ -1,73 +1,73 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfjq5c3jacg7f"]
+[gd_scene format=3 uid="uid://cfjq5c3jacg7f"]
 
 [ext_resource type="Texture2D" uid="uid://cmoyghmdpm6n8" path="res://assets/icons/play.svg" id="1_1gv48"]
 [ext_resource type="Script" uid="uid://c0outer1ie6q4" path="res://scenes/menus/lobby/lobby.gd" id="1_bt4ks"]
 
-[node name="Lobby" type="PanelContainer"]
+[node name="Lobby" type="PanelContainer" unique_id=1397045941]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
 script = ExtResource("1_bt4ks")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1689377012]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=263280075]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1798657521]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LobbyNameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="LobbyNameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1258642074]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "(LOBBY NAME)"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=715188257]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1990697367]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="IDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="IDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1256741129]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.56438905, 0.564389, 0.564389, 1)
 theme_override_font_sizes/font_size = 12
 text = "ID:"
 vertical_alignment = 1
 
-[node name="LobbyIDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="LobbyIDLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1077678862]
 layout_mode = 2
 size_flags_vertical = 6
 text = "(LOBBY ID)"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1578832660]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Players" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Players" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=30825111]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.56438905, 0.564389, 0.564389, 1)
 theme_override_font_sizes/font_size = 12
 text = "Players:"
 vertical_alignment = 1
 
-[node name="PlayersLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="PlayersLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1303992911]
 layout_mode = 2
 size_flags_vertical = 6
 text = "(PLAYER), (PLAYER), (PLAYER), (PLAYER)"
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer" unique_id=110852513]
 layout_mode = 2
 
-[node name="JoinButton" type="Button" parent="MarginContainer/HBoxContainer/AspectRatioContainer"]
+[node name="JoinButton" type="Button" parent="MarginContainer/HBoxContainer/AspectRatioContainer" unique_id=201119673]
 layout_mode = 2
 icon = ExtResource("1_1gv48")
 icon_alignment = 1

@@ -6,10 +6,10 @@
 [ext_resource type="Script" uid="uid://bskd11e3augak" path="res://scenes/ui/lobby_popup/lobby_popup_container.gd" id="4_er14q"]
 [ext_resource type="Texture2D" uid="uid://7egmi4y8aefm" path="res://assets/icons/exit.svg" id="5_wbj5x"]
 
-[node name="UserInterface" type="CanvasLayer"]
+[node name="UserInterface" type="CanvasLayer" unique_id=540515396]
 script = ExtResource("1_wbj5x")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=184896800]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=967945903]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,10 +29,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Control" type="Control" parent="Control/MarginContainer"]
+[node name="Control" type="Control" parent="Control/MarginContainer" unique_id=1929236280]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/Control" unique_id=2134822600]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -42,28 +42,28 @@ offset_right = -10.0
 offset_bottom = 10.0
 grow_horizontal = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/Control/PanelContainer" unique_id=1605595653]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer" unique_id=1364760833]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LobbyPopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="LobbyPopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=140779577]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("1_3sye7")
 
-[node name="EscapePopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="EscapePopupButton" type="Button" parent="Control/MarginContainer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1669917112]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("2_ah2hq")
 
-[node name="PopupsMarginContainer" type="MarginContainer" parent="Control"]
+[node name="PopupsMarginContainer" type="MarginContainer" parent="Control" unique_id=2024556022]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,29 +76,29 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 100
 
-[node name="LobbyPopup" type="PanelContainer" parent="Control/PopupsMarginContainer"]
+[node name="LobbyPopup" type="PanelContainer" parent="Control/PopupsMarginContainer" unique_id=1108623232]
 visible = false
 layout_mode = 2
 script = ExtResource("4_er14q")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup" unique_id=796136173]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer" unique_id=1863524682]
 layout_mode = 2
 
-[node name="LobbyNameLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+[node name="LobbyNameLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer" unique_id=708906754]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 text = "Conrad's Lobby"
 horizontal_alignment = 1
 
-[node name="LobbyIDLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/LobbyNameLabel"]
+[node name="LobbyIDLabel" type="Label" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/LobbyNameLabel" unique_id=394803171]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -112,11 +112,11 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "ID:  (EXAMPLE ID)"
 
-[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer" unique_id=1216412891]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer" unique_id=425016065]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
@@ -124,39 +124,39 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer" unique_id=1812955887]
 layout_mode = 2
 
-[node name="PlayerContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="PlayerContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/LobbyPopup/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer" unique_id=1202681247]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EscapePopup" type="PanelContainer" parent="Control/PopupsMarginContainer"]
+[node name="EscapePopup" type="PanelContainer" parent="Control/PopupsMarginContainer" unique_id=989174222]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/EscapePopup"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PopupsMarginContainer/EscapePopup" unique_id=1382661563]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer" unique_id=573968378]
 layout_mode = 2
 
-[node name="EscapeLabel" type="Label" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+[node name="EscapeLabel" type="Label" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer" unique_id=500861300]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Escape Menu"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer" unique_id=319042333]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LeaveButton" type="Button" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer"]
+[node name="LeaveButton" type="Button" parent="Control/PopupsMarginContainer/EscapePopup/MarginContainer/VBoxContainer" unique_id=1188957818]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Leave"

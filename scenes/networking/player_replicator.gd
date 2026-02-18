@@ -9,15 +9,11 @@ func _ready() -> void:
 	ServerConnection.send_packet(ServerConnection.TCP, PacketUtils.Outgoing.REQUEST_PLAYER_SYNC)
 
 func _on_received_packet(packet_id: int, data: PackedByteArray) -> void:
-	print("recv packet id: ", packet_id)
-
 	match packet_id:
 		PacketUtils.Incoming.UPDATE_PLAYERS:
-			print("recieving update")
 			_handle_player_update(PacketUtils.read_player_update(data).value)
 
 		PacketUtils.Incoming.SYNC_PLAYERS:
-			print("recieving sync")
 			_handle_player_sync(PacketUtils.read_player_sync(data).value)
 
 # helper to create a new player
@@ -42,6 +38,7 @@ func _handle_player_update(player_list: Array) -> void:
 
 		var pos: Vector2 = data.get("position", Vector2.ZERO)
 		var rot: float = data.get("rotation", 0.0)
+
 		if id in players:
 			players[id].target_position = pos
 			players[id].target_rotation = rot
@@ -59,11 +56,15 @@ func _handle_player_sync(player_list: Array) -> void:
 			continue
 
 		synced_ids.append(id)
-		var username: String = data.get("username", "username didnt get passed through")
+		var username: String = data.get("username", "UNKNOWN (ERROR)")
+		var player_position: Vector2 = data.get("position", Vector2.ZERO)
+		var player_rotation: float = data.get("rotation", 0.0)
 
 		if id in players:
 			var existing: Player = players[id]
 			existing.username = username
+			existing.target_position = player_position
+			existing.target_rotation = player_rotation
 		else:
 			_create_player(id, username)
 

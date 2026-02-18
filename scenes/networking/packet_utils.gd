@@ -222,23 +222,33 @@ static func read_player_sync(bytes: PackedByteArray, start_pos: int = 0) -> Read
 
 		# read player id
 		var id_res: ReadResult = read_var_int(b, local_pos)
-		if not id_res.fully_read:
-			return ReadResult.new({}, id_res.next_pos, false)
-
 		var player_id: int = id_res.value
+		
 		local_pos = id_res.next_pos
 
 		# read player username
 		var name_res: ReadResult = read_string(b, local_pos)
-		if not name_res.fully_read:
-			return ReadResult.new({}, name_res.next_pos, false)
-
 		var username: String = name_res.value
+		
 		local_pos = name_res.next_pos
+
+		# read player position
+		var pos_res: ReadResult = read_position(b, local_pos)
+		var position: Vector2 = pos_res.value
+
+		local_pos = pos_res.next_pos
+
+		# read player rotation
+		var rot_res: ReadResult = read_rotation(b, local_pos)
+		var rotation: float = rot_res.value
+
+		local_pos = rot_res.next_pos
 
 		return ReadResult.new({
 			"id": player_id,
-			"username": username
+			"username": username,
+			"position": position,
+			"rotation": rotation,
 		}, local_pos, true)
 
 	var players_res: ReadResult = read_multiple(bytes, pos, read_sync_item)

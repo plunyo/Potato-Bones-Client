@@ -32,5 +32,6 @@ func _on_packet_received(packet_id: int, data: PackedByteArray) -> void:
 				var player_lobby_instance: PlayerLobbyList = PLAYER_LOBBY_LIST_SCENE.instantiate()
 				player_container.add_child(player_lobby_instance)
 				player_lobby_instance.set_data(player_data.username, player_data.id)
+
 				if ServerConnection.lobby_info.has("host_id"):
 					player_lobby_instance.set_is_host(ServerConnection.lobby_info.host_id == ServerConnection.client_id)

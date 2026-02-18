@@ -11,7 +11,7 @@ const CONNECTED_TO_SERVER_MESSAGE: String = "Connected!"
 @onready var status_label: Label = $StatusLabel
 
 func _ready() -> void:
-	ServerConnection.disconnected.connect(func(_reason: String) -> void: spawn_error("Connection failed."))
+	ServerConnection.disconnected.connect(func(reason: String) -> void: ErrorOverlay.spawn_error("Connection " + reason))
 	ServerConnection.connected.connect(_on_server_connection_connected)
 	ServerConnection.received_packet.connect(_on_recieved_packet)
 
@@ -29,18 +29,11 @@ func _on_button_pressed() -> void:
 	if port_str.is_valid_int():
 		port = int(port_str)
 	else:
-		spawn_error("Invalid port: '%s'. Using default port 4206" % port_str)
+		ErrorOverlay.spawn_error("Invalid port: '%s'. Using default port 4206" % port_str)
 		port = 4206
 
 	ServerConnection.connect_to_server(ip, port)
 	status_label.text = CONNECTING_TO_SERVER_MESSAGE
-
-func spawn_error(message: String) -> void:
-	print(message)
-	status_label.text = ""
-	var error_message_instance: Label = ERROR_MESSAGE_SCENE.instantiate() as Label
-	error_message_instance.text = "Error: " + message
-	error_message_container.add_child(error_message_instance)
 
 func _on_recieved_packet(packet_id: int, _data: PackedByteArray) -> void:
 	if packet_id != PacketUtils.Incoming.SESSION_ID: return

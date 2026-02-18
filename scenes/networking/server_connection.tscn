@@ -1,16 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://d30ikmwvfb81w"]
+[gd_scene format=3 uid="uid://d30ikmwvfb81w"]
 
 [ext_resource type="Script" uid="uid://t4s50eiabgyl" path="res://scenes/networking/server_connection.gd" id="1_ee6yg"]
 
-[node name="ServerConnection" type="Node"]
+[node name="ServerConnection" type="Node" unique_id=86718912]
 script = ExtResource("1_ee6yg")
 
-[node name="PollTimer" type="Timer" parent="."]
+[node name="PollTimer" type="Timer" parent="." unique_id=2073038042]
 wait_time = 0.05
 
-[node name="DeadlineTimer" type="Timer" parent="."]
+[node name="DeadlineTimer" type="Timer" parent="." unique_id=2145309814]
 wait_time = 5.0
 one_shot = true
+
+[node name="PingTimer" type="Timer" parent="." unique_id=1606595164]
 
 [connection signal="received_packet" from="." to="." method="_on_received_packet"]
 [connection signal="timeout" from="PollTimer" to="." method="_on_poll_timer_timeout"]
