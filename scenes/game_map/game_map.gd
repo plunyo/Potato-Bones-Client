@@ -44,6 +44,7 @@ func generate_pbtiles(path: String) -> void:
 		output.append(str(_atlas_coords_to_id(atlas_coords)) + ":")
 		
 		var points: PackedVector2Array = collision_data[atlas_coords]
+
 		for point in points:
 			var normalized_x := (point.x + half_tile.x) * inv_tile_size.x
 			var normalized_y := (point.y + half_tile.y) * inv_tile_size.y
